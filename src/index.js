@@ -10,24 +10,42 @@ const pkg = require('../package.json');
  * Prefix the path for each of the passed routes
  *
  * @param {Array.<?Object> | Object} routes The list of routes
- * @param {Array.<?string>} prefixes The prefixes to be appended
+ * @param {Array.<?string>} segments The segments of the related file path
  * @returns {Array.<?Object>} The list of routes with prefixed paths
  */
-function prefixRoutes(routes, prefixes) {
+function prefixRoutes(routes, segments) {
   if (!Array.isArray(routes)) {
     routes = Array.of(routes);
   }
 
-  prefixes = prefixes.split(path.sep);
-  prefixes.pop();
+  segments = segments.split(path.sep);
+  segments.pop();
 
-  if (prefixes.length !== 0) {
+  if (segments.length !== 0) {
     routes.forEach(route => {
-      route.path = `/${prefixes.join('/')}${route.path}`;
+      route.path = `/${segments.join('/')}${route.path}`;
     });
   }
 
   return routes;
+}
+
+/**
+ * @function
+ * @private
+ *
+ * @description
+ * Get list of file paths based on passed options
+ *
+ * @param {Object} options The options to pick out the unwanted route files
+ * @returns {Array.<?string>} List of file paths
+ */
+function getFilePaths(options) {
+  return glob.sync('**/*.js', {
+    nodir: true,
+    cwd: options.routes,
+    ignore: options.ignore,
+  });
 }
 
 /**
@@ -40,13 +58,8 @@ function prefixRoutes(routes, prefixes) {
  * @returns {*}
  */
 function routeLoader(server, options, next) {
+  const filePaths = getFilePaths(options);
   let routes;
-
-  const filePaths = glob.sync('**/*.js', {
-    nodir: true,
-    cwd: options.routes,
-    ignore: options.ignore,
-  });
 
   filePaths.forEach(filePath => {
     routes = require(path.join(options.routes, filePath));

@@ -2,6 +2,7 @@
 
 ### unreleased
 - **doc:** fix typo
+- **fix:** refactor
 
 ### [v0.1.0] - 2016-05-14
 - **add:** initial files
