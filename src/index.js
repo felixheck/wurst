@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs');
+const glob = require('glob');
 const pkg = require('../package.json');
 
 /**
@@ -18,6 +18,9 @@ function prefixRoutes(routes, prefixes) {
     routes = Array.of(routes);
   }
 
+  prefixes = prefixes.split(path.sep);
+  prefixes.pop();
+
   if (prefixes.length !== 0) {
     routes.forEach(route => {
       route.path = `/${prefixes.join('/')}${route.path}`;
@@ -25,35 +28,6 @@ function prefixRoutes(routes, prefixes) {
   }
 
   return routes;
-}
-
-/**
- * @function
- * @private
- *
- * @description
- * Load and register files recursively
- *
- * @param {Object} server The current server object
- * @param {string} dir The path to the directory to look up
- * @param {Array.<?string>} prefixes The directory names to be appended
- */
-function fileLoader(server, dir, prefixes = []) {
-  let itemPath;
-  let stats;
-  let routes;
-
-  fs.readdirSync(dir).forEach(item => {
-    itemPath = path.join(dir, item);
-    stats = fs.lstatSync(itemPath);
-
-    if (stats.isFile()) {
-      routes = require(itemPath);
-      server.route(prefixRoutes(routes, prefixes));
-    } else if (stats.isDirectory()) {
-      fileLoader(server, itemPath, [...prefixes, item]);
-    }
-  });
 }
 
 /**
@@ -66,7 +40,18 @@ function fileLoader(server, dir, prefixes = []) {
  * @returns {*}
  */
 function routeLoader(server, options, next) {
-  fileLoader(server, options.dir);
+  let routes;
+
+  const filePaths = glob.sync('**/*.js', {
+    nodir: true,
+    cwd: options.dir,
+    ignore: options.ignore,
+  });
+
+  filePaths.forEach(filePath => {
+    routes = require(path.join(options.dir, filePath));
+    server.route(prefixRoutes(routes, filePath));
+  });
 
   return next();
 }
