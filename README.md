@@ -29,7 +29,41 @@ $ git clone https://github.com/felixheck/wurst
 ```
 
 ## Usage
-*coming soon!*
+#### Import
+First you have to import the module:
+``` js
+// ES6 module syntax
+import wurst from 'wurst';
+
+// Node traditional syntax
+const wurst = require('wurst').default;
+```
+
+#### Create hapi server
+Afterwards create your api server + connection if not already done:
+``` js
+const server = new Hapi.Server();
+
+server.connection({
+  port: 8888,
+  host: 'localhost',
+});
+```
+
+#### Registration
+Finally register the plugin and set the correct routes directory:
+``` js
+server.register({
+  register: wurst,
+  options: {
+    dir: path.join(__dirname, 'routes'),
+  },
+}, err => {
+  if (err) {
+    throw err;
+  }
+});
+```
 
 ## Testing
 First you have to install all dependencies:
