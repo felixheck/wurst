@@ -1,8 +1,11 @@
 # master
 
 ### unreleased
+
+### [v0.1.1] - 2016-05-14
 - **doc:** fix typo
 - **fix:** refactor
+- **doc:** update CHANGELOG.md
 
 ### [v0.1.0] - 2016-05-14
 - **add:** initial files
