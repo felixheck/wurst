@@ -10,3 +10,4 @@
 - **fix:** add ignore pattern functionality and make use of glob
 - **fix:** adjust specification concerning added functionality
 - **doc:** adjust usage chapter concerning added functionality
+- **fix:** disable multiple registration

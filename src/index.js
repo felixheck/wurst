@@ -61,6 +61,7 @@ function routeLoader(server, options, next) {
  * @public
  */
 routeLoader.attributes = {
+  multiple: false,
   pkg,
 };
 
