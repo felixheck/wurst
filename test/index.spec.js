@@ -43,7 +43,7 @@ describe('wurst', () => {
   describe('basic specification', () => {
     before(() => {
       createServer({
-        dir: path.join(__dirname, 'routes'),
+        routes: path.join(__dirname, 'routes'),
       });
     });
 
@@ -110,7 +110,7 @@ describe('wurst', () => {
   describe('single ignore specification', () => {
     before(() => {
       createServer({
-        dir: path.join(__dirname, 'routes'),
+        routes: path.join(__dirname, 'routes'),
         ignore: [
           'foo/bar/*.js',
         ],
@@ -129,7 +129,7 @@ describe('wurst', () => {
   describe('multiple ignore specification', () => {
     before(() => {
       createServer({
-        dir: path.join(__dirname, 'routes'),
+        routes: path.join(__dirname, 'routes'),
         ignore: [
           'foo/bar/*.js',
           'foo/*.js',

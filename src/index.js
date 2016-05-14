@@ -44,12 +44,12 @@ function routeLoader(server, options, next) {
 
   const filePaths = glob.sync('**/*.js', {
     nodir: true,
-    cwd: options.dir,
+    cwd: options.routes,
     ignore: options.ignore,
   });
 
   filePaths.forEach(filePath => {
-    routes = require(path.join(options.dir, filePath));
+    routes = require(path.join(options.routes, filePath));
     server.route(prefixRoutes(routes, filePath));
   });
 

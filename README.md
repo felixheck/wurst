@@ -59,7 +59,7 @@ Finally register the plugin and set the correct routes directory:
 server.register({
   register: wurst,
   options: {
-    dir: path.join(__dirname, 'routes'),
+    routes: path.join(__dirname, 'routes'),
     ignore: 'foo/**/*.js'
   },
 }, err => {
@@ -70,7 +70,7 @@ server.register({
 ```
 
 #### Options
-**dir**: required
+**routes**: required
 Type: `string`
 
 The absolute path to the routes directory.
