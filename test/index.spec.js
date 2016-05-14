@@ -3,6 +3,9 @@ const Hapi = require('hapi');
 const path = require('path');
 const wurst = require('../src');
 
+let testServer;
+let routeTable;
+
 function getInfo(server) {
   const routes = [];
 
@@ -19,34 +22,40 @@ function getInfo(server) {
   return routes;
 }
 
-const server = new Hapi.Server();
-server.connection({
-  port: 8888,
-  host: 'localhost',
-});
-server.register({
-  register: wurst,
-  options: {
-    dir: path.join(__dirname, 'routes'),
-  },
-}, err => {
-  if (err) {
-    throw err;
-  }
-});
+function createServer(options) {
+  testServer = new Hapi.Server();
 
-const routeTable = getInfo(server);
+  testServer.connection();
 
-describe('wurst', () => {
-  it('contains routes', () => {
-    const checked = routeTable.every(route => (
-      route && route.path && route.method && route.description
-    ));
-
-    expect(checked).to.be.true;
+  testServer.register({
+    register: wurst,
+    options,
+  }, err => {
+    if (err) {
+      throw err;
+    }
   });
 
-  describe('root route', () => {
+  routeTable = getInfo(testServer);
+}
+
+describe('wurst', () => {
+  describe('basic specification', () => {
+    before(() => {
+      createServer({
+        dir: path.join(__dirname, 'routes'),
+      });
+    });
+
+    it('contains routes', () => {
+      const checked = routeTable.every(route => (
+        route && route.path && route.method && route.description
+      ));
+
+      expect(checked).to.be.true;
+    });
+
+    // root route
     it('does contain the root route', () => {
       const filtered = routeTable.filter(route => (
         route.description === 'root'
@@ -62,9 +71,8 @@ describe('wurst', () => {
 
       expect(filtered[0].path).to.equal('/');
     });
-  });
 
-  describe('foo route', () => {
+    // foo route
     it('does contain the foo route', () => {
       const filtered = routeTable.filter(route => (
         route.description === 'foo'
@@ -80,9 +88,8 @@ describe('wurst', () => {
 
       expect(filtered[0].path).to.equal('/foo/foo');
     });
-  });
 
-  describe('bar routes', () => {
+    // bar routes
     it('does contain the bar route', () => {
       const filtered = routeTable.filter(route => (
         route.description === 'foobar'
@@ -97,6 +104,53 @@ describe('wurst', () => {
       ));
 
       expect(filtered[0].path).to.equal('/foo/bar/foobar');
+    });
+  });
+
+  describe('single ignore specification', () => {
+    before(() => {
+      createServer({
+        dir: path.join(__dirname, 'routes'),
+        ignore: [
+          'foo/bar/*.js',
+        ],
+      });
+    });
+
+    it('ignores the bar routes', () => {
+      const filtered = routeTable.filter(route => (
+        route.description === 'foobar'
+      ));
+
+      expect(filtered.length).to.equal(0);
+    });
+  });
+
+  describe('multiple ignore specification', () => {
+    before(() => {
+      createServer({
+        dir: path.join(__dirname, 'routes'),
+        ignore: [
+          'foo/bar/*.js',
+          'foo/*.js',
+        ],
+      });
+    });
+
+    it('ignores the bar routes', () => {
+      const filtered = routeTable.filter(route => (
+        route.description === 'foobar'
+      ));
+
+      expect(filtered.length).to.equal(0);
+    });
+
+    it('ignores the foo routes', () => {
+      const filtered = routeTable.filter(route => (
+        route.description === 'foo'
+      ));
+
+      expect(filtered.length).to.equal(0);
     });
   });
 });

@@ -8,3 +8,4 @@
 - **doc:** fix typo
 - **add:** glob (7.0.3)
 - **fix:** add ignore pattern functionality and make use of glob
+- **fix:** adjust specification concerning added functionality
