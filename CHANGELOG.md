@@ -3,6 +3,7 @@
 ### unreleased
 - **doc:** fix typo
 - **add:** logo file
+- **doc:** link logo in README.md
 
 ### [v0.1.1] - 2016-05-14
 - **doc:** fix typo
