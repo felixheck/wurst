@@ -1,4 +1,4 @@
-![wurst logo]{https://raw.githubusercontent.com/felixheck/wurst/master/wurst.png}
+![wurst logo](https://raw.githubusercontent.com/felixheck/wurst/master/wurst.png)
 #### Directory based autoloader for hapi.js routes
 ---
 
