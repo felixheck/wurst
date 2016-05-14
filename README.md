@@ -101,7 +101,7 @@ const fooRoutes = [
 module.exports = fooRoutes;
 ```
 
-It is important the these route files use `module.exports` to provide a [route object](http://hapijs.com/api#route-configuration) or a list of route objects.
+It is important that these route files use `module.exports` to provide a single [route object](http://hapijs.com/api#route-configuration) or a list.
 After starting the server the following routes are available:
 
 ```
