@@ -5,11 +5,14 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Usage](#usage)
-4. [Testing](#testing)
-5. [Contribution](#contribution)
-6. [License](#license)
+4. [Example](#example)
+5. [Testing](#testing)
+6. [Contribution](#contribution)
+7. [License](#license)
 
 ## Introduction
+Just set up your desired directory structure, export your route files, register the plugin and get your final routes based on the provided directory structure.
+
 This module is implemented in ECMAScript 6 (v2015). Therefore the development dependencies are based on `babel`.
 Additionally `eslint` and `mocha` are used to grant a high quality implementation.
 
@@ -63,6 +66,50 @@ server.register({
     throw err;
   }
 });
+```
+
+## Example
+The following file structure is the base of this example:
+```
+src/
+  routes/
+    foo.js
+    bar/
+      foo.js
+  index.js
+```
+
+The route files `src/routes/foo.js` and `src/routes/bar/foo.js` look like:
+``` js
+const fooRoutes = [
+	{
+    method: 'GET',
+    path: '/',
+    handler(request, reply) {
+        reply('foo');
+    }
+  },
+  {
+    method: 'GET',
+    path: '/42',
+    handler(request, reply) {
+        reply('42');
+    }
+  }
+];
+
+module.exports = fooRoutes;
+```
+
+It is important the these route files use `module.exports` to provide a [route object](http://hapijs.com/api#route-configuration) or a list of route objects.
+After starting the server the following routes are available:
+
+```
+/
+/42
+
+/bar
+/bar/42
 ```
 
 ## Testing
