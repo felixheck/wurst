@@ -95,7 +95,7 @@ src/
 The route files `src/routes/foo.js` and `src/routes/bar/foo.js` look like:
 ``` js
 const fooRoutes = [
-	{
+  {
     method: 'GET',
     path: '/',
     handler(request, reply) {
