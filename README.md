@@ -39,7 +39,7 @@ First you have to import the module:
 import wurst from 'wurst';
 
 // Node traditional syntax
-const wurst = require('wurst').default;
+const wurst = require('wurst');
 ```
 
 #### Create hapi server
