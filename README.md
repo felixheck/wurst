@@ -70,12 +70,12 @@ server.register({
 ```
 
 #### Options
-**routes**: required
+**routes**: required<br/>
 Type: `string`
 
 The absolute path to the routes directory.
 
-**ignore**: optional
+**ignore**: optional<br/>
 Type: `string` / `array`
 
 The [glomb](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
