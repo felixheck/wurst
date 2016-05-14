@@ -60,6 +60,7 @@ server.register({
   register: wurst,
   options: {
     dir: path.join(__dirname, 'routes'),
+    ignore: 'foo/**/*.js'
   },
 }, err => {
   if (err) {
@@ -67,6 +68,18 @@ server.register({
   }
 });
 ```
+
+#### Options
+**dir**: required
+Type: `string`
+
+The absolute path to the routes directory.
+
+**ignore**: optional
+Type: `string` / `array`
+
+The [glomb](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
+
 
 ## Example
 The following file structure is the base of this example:
