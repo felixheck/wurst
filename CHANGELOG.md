@@ -1,6 +1,6 @@
 # master
 
-### unreleaed
+### [v0.1.0] - 2016-05-14
 - **add:** initial files
 - **doc:** usage chapter
 - **doc:** example chapter
@@ -12,3 +12,4 @@
 - **doc:** adjust usage chapter concerning added functionality
 - **fix:** disable multiple registration
 - **fix:** rename options.dir into options.routes
+- **doc:** update CHANGELOG.md
