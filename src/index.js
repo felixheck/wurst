@@ -16,8 +16,8 @@ internals.schema = {
   options: joi.object({
     routes: joi.string().required(),
     ignore: [
-      joi.string().optional(),
-      joi.array().items(joi.string()).optional(),
+      joi.string(),
+      joi.array().items(joi.string()),
     ],
   }),
 };

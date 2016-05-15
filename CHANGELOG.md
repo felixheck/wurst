@@ -3,6 +3,7 @@
 ### unreleased
 - **doc:** fix typo
 - **fix:** refactor
+- **fix:** remove unnecessary joi.optional() calls
 
 ### [v0.2.0] - 2016-05-15
 - **fix:** change eslint (no-param-reassign) rule
