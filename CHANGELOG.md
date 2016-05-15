@@ -6,6 +6,7 @@
 - **doc:** link logo in README.md
 - **doc:** fix typo
 - **fix:** lint
+- **doc:** refactor README.md
 
 ### [v0.1.1] - 2016-05-14
 - **doc:** fix typo

@@ -11,12 +11,9 @@
 7. [License](#license)
 
 ## Introduction
-Just set up your desired directory structure, export your route files, register the plugin and get your final routes based on the provided directory structure.
+*wurst* is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
 
-This module is implemented in ECMAScript 6 (v2015). Therefore the development dependencies are based on `babel`.
-Additionally `eslint` and `mocha` are used to grant a high quality implementation.
-
-**wurst** is the German translation for "sausage" - just throw anything in a pot and in the end you'll be satisfied ;-)
+This plugin is implemented in ECMAScript 6. Therefore the development dependencies are based on `babel`. Additionally `eslint` and `mocha` are used to grant a high quality implementation.
 
 ## Installation
 For installation use the [Node Package Manager](https://github.com/npm/npm):
@@ -35,15 +32,11 @@ $ git clone https://github.com/felixheck/wurst
 #### Import
 First you have to import the module:
 ``` js
-// ES6 module syntax
-import wurst from 'wurst';
-
-// Node traditional syntax
 const wurst = require('wurst');
 ```
 
 #### Create hapi server
-Afterwards create your api server + connection if not already done:
+Afterwards create your hapi server and the corresponding connection if not already done:
 ``` js
 const server = new Hapi.Server();
 
@@ -54,7 +47,7 @@ server.connection({
 ```
 
 #### Registration
-Finally register the plugin and set the correct routes directory:
+Finally register the plugin and set the correct options:
 ``` js
 server.register({
   register: wurst,
@@ -62,7 +55,7 @@ server.register({
     routes: path.join(__dirname, 'routes'),
     ignore: 'foo/**/*.js'
   },
-}, err => {
+}, function(err) {
   if (err) {
     throw err;
   }
@@ -70,31 +63,30 @@ server.register({
 ```
 
 #### Options
-**routes**: required<br/>
-Type: `string`
 
+**routes**: `string` `required`<br/>
 The absolute path to the routes directory.
 
-**ignore**: optional<br/>
-Type: `string` / `array`
-
-The [glomb](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
+**ignore**: `string | Array.<?string>` `optional`<br/>
+The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
 
 
 ## Example
 The following file structure is the base of this example:
 ```
 src/
-  routes/
-    foo.js
-    bar/
-      foo.js
-  index.js
+..routes/
+....routes.js
+....bar/
+......routes.js
+......foo/
+........routes.js
+..index.js
 ```
 
-The route files `src/routes/foo.js` and `src/routes/bar/foo.js` look like:
+The route files `**/routes.js` have to provide a single [route object](http://hapijs.com/api#route-configuration) or a list of route objects via `module.exports` and could look like:
 ``` js
-const fooRoutes = [
+const routes = [
   {
     method: 'GET',
     path: '/',
@@ -111,18 +103,20 @@ const fooRoutes = [
   }
 ];
 
-module.exports = fooRoutes;
+module.exports = routes;
 ```
 
-It is important that these route files use `module.exports` to provide a single [route object](http://hapijs.com/api#route-configuration) or a list.
 After starting the server the following routes are available:
 
 ```
-/
-/42
+[GET] /
+[GET] /42
 
-/bar
-/bar/42
+[GET] /bar
+[GET] /bar/42
+
+[GET] /bar/foo
+[GET] /bar/foo/42
 ```
 
 ## Testing
@@ -136,9 +130,9 @@ To execute all unit tests once, use:
 $ npm test
 ```
 
-or to run the tests after each update, use:
+or to run tests based on file watcher, use:
 ```
-$ npm tdd
+$ npm start
 ```
 
 To get information about the test coverage, use:
