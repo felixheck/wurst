@@ -7,6 +7,7 @@
 - **doc:** fix typo
 - **fix:** lint
 - **doc:** refactor README.md
+- **rmv:** remove sinon and sinon-chai
 
 ### [v0.1.1] - 2016-05-14
 - **doc:** fix typo
