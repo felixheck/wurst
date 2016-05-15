@@ -2,6 +2,7 @@
 
 ### unreleased
 - **doc:** fix typo
+- **fix:** refactor
 
 ### [v0.2.0] - 2016-05-15
 - **fix:** change eslint (no-param-reassign) rule
