@@ -153,4 +153,55 @@ describe('wurst', () => {
       expect(filtered.length).to.equal(0);
     });
   });
+
+  describe('misconfiguration', () => {
+    it('throws error because missing options.routes', () => {
+      const wrapper = () => {
+        createServer({
+          ignore: [
+            'foo/bar/*.js',
+            'foo/*.js',
+          ],
+        });
+      };
+
+      expect(wrapper).to.throw(/Invalid options/);
+    });
+
+    it('throws error because wrong options.routes', () => {
+      const wrapper = () => {
+        createServer({
+          routes: 42,
+          ignore: [
+            'foo/bar/*.js',
+            'foo/*.js',
+          ],
+        });
+      };
+
+      expect(wrapper).to.throw(/Invalid options/);
+    });
+
+    it('throws error because wrong options.ignore | number', () => {
+      const wrapper = () => {
+        createServer({
+          routes: path.join(__dirname, 'routes'),
+          ignore: 42,
+        });
+      };
+
+      expect(wrapper).to.throw(/Invalid options/);
+    });
+
+    it('throws error because wrong options.ignore | Array.<number>', () => {
+      const wrapper = () => {
+        createServer({
+          routes: path.join(__dirname, 'routes'),
+          ignore: [42, 1337],
+        });
+      };
+
+      expect(wrapper).to.throw(/Invalid options/);
+    });
+  });
 });

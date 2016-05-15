@@ -1,6 +1,26 @@
 const path = require('path');
 const glob = require('glob');
+const joi = require('joi');
 const pkg = require('../package.json');
+
+/**
+ * @type {Object}
+ * @private
+ *
+ * @description
+ * Host all internal variables
+ */
+const internals = {};
+
+internals.schema = {
+  options: joi.object({
+    routes: joi.string().required(),
+    ignore: [
+      joi.string().optional(),
+      joi.array().items(joi.string()).optional(),
+    ],
+  }),
+};
 
 /**
  * @function
@@ -50,6 +70,20 @@ function getFilePaths(options) {
 
 /**
  * @function
+ * @private
+ *
+ * @description
+ * Validate passed options based on schema
+ * 
+ * @param {Object} options The options to be validated
+ * @param {Object} schema The concerning schema
+ */
+function validateOptions(options, schema) {
+  joi.assert(options, schema, 'Invalid options');
+}
+
+/**
+ * @function
  * @public
  *
  * @param {Object} server The current server object
@@ -58,6 +92,8 @@ function getFilePaths(options) {
  * @returns {*}
  */
 function routeLoader(server, options, next) {
+  validateOptions(options, internals.schema.options);
+
   const filePaths = getFilePaths(options);
   let routes;
 
