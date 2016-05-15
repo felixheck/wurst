@@ -4,6 +4,7 @@
 - **doc:** fix typo
 - **fix:** refactor
 - **fix:** remove unnecessary joi.optional() calls
+- **add:** documentation blocks for helper functions
 
 ### [v0.2.0] - 2016-05-15
 - **fix:** change eslint (no-param-reassign) rule

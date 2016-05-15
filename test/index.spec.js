@@ -6,6 +6,16 @@ const wurst = require('../src');
 let testServer;
 let routeTable;
 
+/**
+ * @function
+ * @private
+ * 
+ * @description
+ * Get information about registered routes
+ * 
+ * @param {Object} The current server object
+ * @returns {Array.<?Object>} List of registered route objects
+ */
 function getInfo(server) {
   const routes = [];
 
@@ -22,9 +32,17 @@ function getInfo(server) {
   return routes;
 }
 
+/**
+ * @function
+ * @private
+ * 
+ * @description
+ * Create new server based on passed options and log route information
+ * 
+ * @param {Object} options The plugin options
+ */
 function createServer(options) {
   testServer = new Hapi.Server();
-
   testServer.connection();
 
   testServer.register({
