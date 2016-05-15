@@ -52,7 +52,7 @@ describe('wurst', () => {
         route && route.path && route.method && route.description
       ));
 
-      expect(checked).to.be.true;
+      expect(checked).to.equal(true);
     });
 
     // root route
