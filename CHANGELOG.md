@@ -1,6 +1,8 @@
 # master
 
 ### unreleased
+
+### [v0.1.2] - 2016-05-15
 - **doc:** fix typo
 - **add:** logo file
 - **doc:** link logo in README.md
@@ -8,6 +10,7 @@
 - **fix:** lint
 - **doc:** refactor README.md
 - **rmv:** remove sinon and sinon-chai
+- **doc:** update CHANGELOG.md
 
 ### [v0.1.1] - 2016-05-14
 - **doc:** fix typo
