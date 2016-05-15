@@ -120,6 +120,7 @@ describe('wurst', () => {
       const filtered = routeTable.filter(route => (
         route.description === 'foobar'
       ));
+      console.log(routeTable);
 
       expect(filtered[0].path).to.equal('/foo/bar/foobar');
     });
@@ -183,7 +184,7 @@ describe('wurst', () => {
         });
       };
 
-      expect(wrapper).to.throw(/Invalid options/);
+      expect(wrapper).to.throw(Error);
     });
 
     it('throws error because wrong options.routes', () => {
@@ -197,7 +198,7 @@ describe('wurst', () => {
         });
       };
 
-      expect(wrapper).to.throw(/Invalid options/);
+      expect(wrapper).to.throw(Error);
     });
 
     it('throws error because wrong options.ignore | number', () => {
@@ -208,7 +209,7 @@ describe('wurst', () => {
         });
       };
 
-      expect(wrapper).to.throw(/Invalid options/);
+      expect(wrapper).to.throw(Error);
     });
 
     it('throws error because wrong options.ignore | Array.<number>', () => {
@@ -218,8 +219,8 @@ describe('wurst', () => {
           ignore: [42, 1337],
         });
       };
-
-      expect(wrapper).to.throw(/Invalid options/);
+      
+      expect(wrapper).to.throw(Error);
     });
   });
 });
