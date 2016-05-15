@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **fix:** change eslint (no-param-reassign) rule
 
 ### [v0.1.2] - 2016-05-15
 - **doc:** fix typo

@@ -10,7 +10,7 @@
     }
   },
   "rules": {
-    "no-param-reassign": [2, { "props": false }],
+    "no-param-reassign": [1, { "props": false }],
     "default-case": 0,
     "global-require": 0,
     "new-cap": [2, { "newIsCap": true, "capIsNew": false }],
