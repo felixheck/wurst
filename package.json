@@ -64,7 +64,8 @@
     "npm": "^3.8.8"
   },
   "dependencies": {
-    "glob": "^7.0.3"
+    "glob": "^7.0.3",
+    "joi": "^8.1.0"
   },
   "peerDependencies": {
     "hapi": "13.x.x"
