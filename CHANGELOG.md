@@ -5,6 +5,7 @@
 - **fix:** refactor
 - **fix:** remove unnecessary joi.optional() calls
 - **add:** documentation blocks for helper functions
+- **upg:** eslint (2.9.0 -> 2.10.1)
 
 ### [v0.2.0] - 2016-05-15
 - **fix:** change eslint (no-param-reassign) rule
