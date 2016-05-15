@@ -2,6 +2,7 @@
 
 ### unreleased
 - **fix:** change eslint (no-param-reassign) rule
+- **add:** hapi (13.x.x) as peer dependency
 
 ### [v0.1.2] - 2016-05-15
 - **doc:** fix typo

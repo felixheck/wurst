@@ -65,5 +65,8 @@
   },
   "dependencies": {
     "glob": "^7.0.3"
+  },
+  "peerDependencies": {
+    "hapi": "13.x.x"
   }
 }
