@@ -12,7 +12,7 @@ const pkg = require('../package.json');
  */
 const internals = {};
 
-internals.schema = {
+internals.schemata = {
   options: joi.object({
     routes: joi.string().required(),
     ignore: [
@@ -27,12 +27,12 @@ internals.schema = {
  * @private
  *
  * @description
- * Validate passed options based on schema
+ * Validate plugin options based on defined schema
  */
 function validateOptions() {
-  const { options, schema } = internals;
+  const { options, schemata } = internals;
 
-  joi.assert(options, schema.options, 'Invalid options');
+  joi.assert(options, schemata.options, 'Invalid options');
 }
 
 /**
