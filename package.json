@@ -33,7 +33,7 @@
   "scripts": {
     "build": "babel -d lib src",
     "coverage": "NODE_ENV=test istanbul cover _mocha -- $npm_package_config_mochaOptions",
-    "lint": "eslint --ext .js src test",
+    "lint": "eslint --ext .js src",
     "start": "npm run test -- --watch",
     "test": "NODE_ENV=test mocha $npm_package_config_mochaOptions",
     "release:major": "npm version major && npm publish && git push --follow-tags",

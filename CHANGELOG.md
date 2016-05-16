@@ -9,6 +9,7 @@
 - **add:** test specification for non-existing path
 - **add:** joi based validation for route config objects
 - **add:** sinon (1.17.4) and sinon-chai (2.8.0)
+- **rmv:** do not lint test directory
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
