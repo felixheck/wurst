@@ -1,6 +1,6 @@
 const path = require('path');
 const glob = require('glob');
-const joi = require('joi');
+const Joi = require('joi');
 
 /**
  * @public
@@ -10,13 +10,17 @@ const joi = require('joi');
  */
 class Wurst {
   static schemata = {
-    options: joi.object({
-      routes: joi.string().required(),
+    options: Joi.object({
+      routes: Joi.string().required(),
       ignore: [
-        joi.string(),
-        joi.array().items(joi.string()),
+        Joi.string(),
+        Joi.array().items(Joi.string()),
       ],
     }),
+    routeObject: Joi.object({
+      path: Joi.string().required(),
+      method: Joi.string().required(),
+    }).unknown(true),
   };
 
   server;
@@ -38,17 +42,6 @@ class Wurst {
 
     this.validateOptions();
     this.getFilePaths().forEach(this::this.registerRoutes);
-  }
-
-  /**
-   * @function
-   * @public
-   *
-   * @description
-   * Validate plugin options based on defined schema
-   */
-  validateOptions() {
-    joi.assert(this.options, Wurst.schemata.options, 'Invalid options');
   }
 
   /**
@@ -105,6 +98,7 @@ class Wurst {
 
     if (pathTree.length !== 0) {
       routes.forEach(route => {
+        this.validateRouteObject(route);
         route.path = `/${pathTree.join('/')}${route.path}`;
       });
     }
@@ -128,6 +122,30 @@ class Wurst {
 
     this.server.route(prefixedRoutes);
     delete require.cache[modulePath];
+  }
+
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Validate plugin options based on defined schema
+   */
+  validateOptions() {
+    Joi.assert(this.options, Wurst.schemata.options, 'Invalid options');
+  }
+
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Validate route configuration object based on defined schema
+   *
+   * @param {Object} routeObject The route object to be validated
+   */
+  validateRouteObject(routeObject) {
+    Joi.assert(routeObject, Wurst.schemata.routeObject, 'Invalid route object');
   }
 }
 
