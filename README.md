@@ -53,7 +53,8 @@ server.register({
   register: wurst,
   options: {
     routes: path.join(__dirname, 'routes'),
-    ignore: 'foo/**/*.js'
+    ignore: 'foo/**/*.js',
+    log: true
   },
 }, function(err) {
   if (err) {
@@ -62,6 +63,8 @@ server.register({
 });
 ```
 
+It is possible to register the plugin many times, but it is suggested to use `options.routes` which are not nested in each other.
+
 #### Options
 
 **routes**: `string` `required`<br/>
@@ -69,6 +72,9 @@ The absolute path to the routes directory.
 
 **ignore**: `string | Array.<?string>` `optional`<br/>
 The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
+
+**log**: `boolean` `optional`<br/>
+If set, the plugins logs the prefixed routes into console.
 
 
 ## Example

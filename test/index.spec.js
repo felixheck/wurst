@@ -1,7 +1,12 @@
-const expect = require('chai').expect;
+const chai = require('chai');
+const sinon = require('sinon');
+const sinonChai = require('sinon-chai');
 const Hapi = require('hapi');
 const path = require('path');
 const Plugin = require('../src');
+
+const expect = chai.expect;
+chai.use(sinonChai);
 
 describe('plugin', () => {
   let server;
@@ -21,15 +26,15 @@ describe('plugin', () => {
     });
 
     return routes;
-  }
+  };
 
   const register = (options, next) => {
     server.register({
       register: Plugin,
       options,
-    }, err => {
-      return next(err);
-    });
+    },
+      err => next(err)
+    );
   };
 
   beforeEach(done => {
@@ -38,7 +43,7 @@ describe('plugin', () => {
     return done();
   });
 
-  describe('server.table() specification', () => {
+  describe('registrations', () => {
     it('contains an summary of registered routes', done => {
       pluginOptions = {
         routes: path.join(__dirname, 'routes'),
@@ -51,6 +56,30 @@ describe('plugin', () => {
 
         expect(err).to.not.exist;
         expect(filtered).to.equal(true);
+        return done();
+      });
+    });
+
+    it('registers the plugin twice', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes'),
+        ignore: 'foo/bar/*.js',
+      };
+
+      register(pluginOptions, () => {});
+
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes/foo/bar'),
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(3);
+        expect(filtered.some(route => route.path === '/')).to.be.true;
+        expect(filtered.some(route => route.path === '/foo/foo')).to.be.true;
+        expect(filtered.some(route => route.path === '/foobar')).to.be.true;
         return done();
       });
     });
@@ -88,6 +117,20 @@ describe('plugin', () => {
         return done();
       });
     });
+
+    it('registers no routes', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'route'),
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(0);
+        return done();
+      });
+    });
   });
 
   describe('options.ignore specification: ', () => {
@@ -122,6 +165,43 @@ describe('plugin', () => {
 
         expect(err).to.not.exist;
         expect(filtered.length).to.equal(1);
+        return done();
+      });
+    });
+  });
+
+  describe('options.log specification: ', () => {
+    let infoSpy;
+
+    beforeEach(() => {
+      infoSpy = sinon.spy(console, 'info');
+    });
+
+    afterEach(() => {
+      infoSpy.restore();
+    });
+
+    it('outputs the mapping', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes'),
+        log: true,
+      };
+
+      register(pluginOptions, err => {
+        expect(err).to.not.exist;
+        expect(infoSpy).to.have.callCount(3);
+        return done();
+      });
+    });
+
+    it('does not output the mapping', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes'),
+      };
+
+      register(pluginOptions, err => {
+        expect(err).to.not.exist;
+        expect(infoSpy).to.have.callCount(0);
         return done();
       });
     });

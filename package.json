@@ -11,7 +11,7 @@
     "auto",
     "loader"
   ],
-  "version": "0.2.1",
+  "version": "0.3.0",
   "license": "MIT",
   "author": {
     "name": "Felix Heck",
@@ -33,7 +33,7 @@
   "scripts": {
     "build": "babel -d lib src",
     "coverage": "NODE_ENV=test istanbul cover _mocha -- $npm_package_config_mochaOptions",
-    "lint": "eslint --ext .js src test",
+    "lint": "eslint --ext .js src",
     "start": "npm run test -- --watch",
     "test": "NODE_ENV=test mocha $npm_package_config_mochaOptions",
     "release:major": "npm version major && npm publish && git push --follow-tags",
@@ -57,7 +57,9 @@
     "eslint-plugin-jsx-a11y": "^1.2.0",
     "hapi": "^13.4.0",
     "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   },
   "engines": {
     "node": "^6.0.0",

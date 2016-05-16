@@ -1,6 +1,22 @@
 # master
 
 ### unreleased
+- **doc:** add explanation for options.log
+
+### [v0.3.0] - 2016-05-16
+- **fix:** refactor
+- **fix:** extract class into new file
+- **fix:** convert Wurst#schemata into Wurst.schemata
+- **fix:** enable multiple registration
+- **doc:** add hint about multiple registration
+- **add:** test specification for non-existing path
+- **add:** joi based validation for route config objects
+- **add:** sinon (1.17.4) and sinon-chai (2.8.0)
+- **rmv:** do not lint test directory
+- **add:** functionality to log the route mapping
+- **add:** custom eslint rule (no-unsed-expressions)
+- **fix:** extract Wurst#load
+- **doc:** update CHANGELOG.md
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
