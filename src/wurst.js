@@ -16,6 +16,7 @@ class Wurst {
         Joi.string(),
         Joi.array().items(Joi.string()),
       ],
+      log: Joi.boolean(),
     }),
     routeObject: Joi.object({
       path: Joi.string().required(),
@@ -23,6 +24,7 @@ class Wurst {
     }).unknown(true),
   };
 
+  routeMap = {};
   server;
   options;
 
@@ -42,6 +44,8 @@ class Wurst {
 
     this.validateOptions();
     this.getFilePaths().forEach(this::this.registerRoutes);
+
+    options.log && this.logRouteMapping();
   }
 
   /**
@@ -83,6 +87,21 @@ class Wurst {
    * @public
    *
    * @description
+   * Log the built route map into console
+   */
+  logRouteMapping() {
+    console.info(`\n${this.constructor.name} prefixed the following routes`);
+
+    Object.keys(this.routeMap).forEach(route => {
+      console.info('\t', route, '->', this.routeMap[route]);
+    });
+  }
+
+  /**
+   * @function
+   * @public
+   *
+   * @description
    * Prefix the path for each of the passed routes
    *
    * @param {Array.<?Object> | Object} routes The list of routes
@@ -90,6 +109,8 @@ class Wurst {
    * @returns {Array.<?Object>} The list of routes with prefixed paths
    */
   prefixRoutes(routes, filePath) {
+    let prefixedPath;
+
     if (!Array.isArray(routes)) {
       routes = Array.of(routes);
     }
@@ -99,7 +120,9 @@ class Wurst {
     if (pathTree.length !== 0) {
       routes.forEach(route => {
         this.validateRouteObject(route);
-        route.path = `/${pathTree.join('/')}${route.path}`;
+
+        prefixedPath = `/${pathTree.join('/')}${route.path}`;
+        route.path = this.routeMap[route.path] = prefixedPath;
       });
     }
 
