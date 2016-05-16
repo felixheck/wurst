@@ -2,6 +2,7 @@
 
 ### unreleased
 - **fix:** refactor
+- **fix:** extract class into new file
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
