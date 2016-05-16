@@ -1,6 +1,8 @@
 # master
 
 ### unreleased
+
+### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
 - **fix:** refactor
 - **fix:** remove unnecessary joi.optional() calls
@@ -11,6 +13,7 @@
 - **fix:** replace specific errors with general ones
 - **fix:** changed specification
 - **fix:** double prefixed routes when registered multiple times
+- **doc:** update CHANGELOG.md
 
 ### [v0.2.0] - 2016-05-15
 - **fix:** change eslint (no-param-reassign) rule
