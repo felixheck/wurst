@@ -74,8 +74,14 @@ The absolute path to the routes directory.
 The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
 
 **log**: `boolean` `optional`<br/>
-If set, the plugins logs the prefixed routes into console.
+If `true`, the plugins logs the prefixed routes into console.<br/>
+For example:
 
+```
+Wurst prefixed the following routes
+  /foobar -> /foo/bar/foobar
+  /foo -> /foo/foo
+```
 
 ## Example
 The following file structure is the base of this example:
