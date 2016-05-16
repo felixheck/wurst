@@ -1,226 +1,131 @@
 const expect = require('chai').expect;
 const Hapi = require('hapi');
 const path = require('path');
-const wurst = require('../src');
+const Plugin = require('../src');
 
-let testServer;
-let routeTable;
+describe('plugin', () => {
+  let server;
+  let pluginOptions;
 
-/**
- * @function
- * @private
- *
- * @description
- * Get information about registered routes
- *
- * @param {Object} The current server object
- * @returns {Array.<?Object>} List of registered route objects
- */
-function getInfo(server) {
-  const routes = [];
+  const getInfo = () => {
+    const routes = [];
 
-  server.table().forEach(connection => {
-    connection.table.forEach(endpoint => {
-      routes.push({
-        path: endpoint.path,
-        method: endpoint.method,
-        description: endpoint.settings.description,
+    server.table().forEach(connection => {
+      connection.table.forEach(endpoint => {
+        console.log(endpoint.settings.description, endpoint.path);
+        routes.push({
+          path: endpoint.path,
+          method: endpoint.method,
+          description: endpoint.settings.description,
+        });
       });
     });
+
+    return routes;
+  }
+
+  const register = (options, next) => {
+    server.register({
+      register: Plugin,
+      options,
+    }, err => {
+      console.log('---');
+      return next(err);
+    });
+  };
+
+  beforeEach(done => {
+    server = new Hapi.Server();
+    server.connection();
+    return done();
   });
 
-  return routes;
-}
-
-/**
- * @function
- * @private
- *
- * @description
- * Create new server based on passed options and log route information
- *
- * @param {Object} options The plugin options
- */
-function createServer(options) {
-  testServer = new Hapi.Server();
-  testServer.connection();
-
-  testServer.register({
-    register: wurst,
-    options,
-  }, err => {
-    if (err) {
-      throw err;
-    }
-  });
-
-  routeTable = getInfo(testServer);
-}
-
-describe('wurst', () => {
-  describe('basic specification', () => {
-    before(() => {
-      createServer({
+  describe('server.table() specification', () => {
+    it('contains an summary of registered routes', done => {
+      pluginOptions = {
         routes: path.join(__dirname, 'routes'),
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo(server).every(route => (
+          route && route.path && route.method && route.description
+        ));
+
+        expect(err).to.not.exist;
+        expect(filtered).to.equal(true);
+        return done();
       });
-    });
-
-    it('contains routes', () => {
-      const checked = routeTable.every(route => (
-        route && route.path && route.method && route.description
-      ));
-
-      expect(checked).to.equal(true);
-    });
-
-    // root route
-    it('does contain the root route', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'root'
-      ));
-
-      expect(filtered.length).to.equal(1);
-    });
-
-    it('does not prefix the root route', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'root'
-      ));
-
-      expect(filtered[0].path).to.equal('/');
-    });
-
-    // foo route
-    it('does contain the foo route', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foo'
-      ));
-
-      expect(filtered.length).to.equal(1);
-    });
-
-    it('does prefix the foo route', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foo'
-      ));
-
-      expect(filtered[0].path).to.equal('/foo/foo');
-    });
-
-    // bar routes
-    it('does contain the bar route', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foobar'
-      ));
-
-      expect(filtered.length).to.equal(1);
-    });
-
-    it('does prefix the bar route', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foobar'
-      ));
-      console.log(routeTable);
-
-      expect(filtered[0].path).to.equal('/foo/bar/foobar');
     });
   });
 
-  describe('single ignore specification', () => {
-    before(() => {
-      createServer({
+  describe('options.routes specification:', () => {
+    it('registers a directory with nested directories', done => {
+      pluginOptions = {
         routes: path.join(__dirname, 'routes'),
-        ignore: [
-          'foo/bar/*.js',
-        ],
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(3);
+        expect(filtered.some(route => route.path === '/')).to.be.true;
+        expect(filtered.some(route => route.path === '/foo/foo')).to.be.true;
+        expect(filtered.some(route => route.path === '/foo/bar/foobar')).to.be.true;
+        return done();
       });
     });
 
-    it('ignores the bar routes', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foobar'
-      ));
+    it('registers just a nested directory', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes/foo/bar'),
+      };
 
-      expect(filtered.length).to.equal(0);
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(1);
+        expect(filtered[0].path).to.equal('/foobar');
+        return done();
+      });
     });
   });
 
-  describe('multiple ignore specification', () => {
-    before(() => {
-      createServer({
+  describe('options.ignore specification: ', () => {
+    it('ignores a single route file', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes'),
+        ignore: 'foo/bar/*.js',
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo().filter(route => (
+          route.description === 'foobar'
+        ));
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(0);
+        return done();
+      });
+    });
+
+    it('ignores multiple route files', done => {
+      pluginOptions = {
         routes: path.join(__dirname, 'routes'),
         ignore: [
           'foo/bar/*.js',
           'foo/*.js',
         ],
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(1);
+        return done();
       });
-    });
-
-    it('ignores the bar routes', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foobar'
-      ));
-
-      expect(filtered.length).to.equal(0);
-    });
-
-    it('ignores the foo routes', () => {
-      const filtered = routeTable.filter(route => (
-        route.description === 'foo'
-      ));
-
-      expect(filtered.length).to.equal(0);
-    });
-  });
-
-  describe('misconfiguration', () => {
-    it('throws error because missing options.routes', () => {
-      const wrapper = () => {
-        createServer({
-          ignore: [
-            'foo/bar/*.js',
-            'foo/*.js',
-          ],
-        });
-      };
-
-      expect(wrapper).to.throw(Error);
-    });
-
-    it('throws error because wrong options.routes', () => {
-      const wrapper = () => {
-        createServer({
-          routes: 42,
-          ignore: [
-            'foo/bar/*.js',
-            'foo/*.js',
-          ],
-        });
-      };
-
-      expect(wrapper).to.throw(Error);
-    });
-
-    it('throws error because wrong options.ignore | number', () => {
-      const wrapper = () => {
-        createServer({
-          routes: path.join(__dirname, 'routes'),
-          ignore: 42,
-        });
-      };
-
-      expect(wrapper).to.throw(Error);
-    });
-
-    it('throws error because wrong options.ignore | Array.<number>', () => {
-      const wrapper = () => {
-        createServer({
-          routes: path.join(__dirname, 'routes'),
-          ignore: [42, 1337],
-        });
-      };
-      
-      expect(wrapper).to.throw(Error);
     });
   });
 });

@@ -9,6 +9,7 @@
 - **fix:** lint
 - **fix:** rename internals.schema into internals.schemata
 - **fix:** replace specific errors with general ones
+- **fix:** changed specification
 
 ### [v0.2.0] - 2016-05-15
 - **fix:** change eslint (no-param-reassign) rule
