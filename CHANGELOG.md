@@ -3,6 +3,7 @@
 ### unreleased
 - **fix:** refactor
 - **fix:** extract class into new file
+- **fix:** convert Wurst#schemata into Wurst.schemata
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo

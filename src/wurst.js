@@ -9,7 +9,7 @@ const joi = require('joi');
  * Autoload and prefix routes
  */
 class Wurst {
-  schemata = {
+  static schemata = {
     options: joi.object({
       routes: joi.string().required(),
       ignore: [
@@ -48,7 +48,7 @@ class Wurst {
    * Validate plugin options based on defined schema
    */
   validateOptions() {
-    joi.assert(this.options, this.schemata.options, 'Invalid options');
+    joi.assert(this.options, Wurst.schemata.options, 'Invalid options');
   }
 
   /**
