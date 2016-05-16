@@ -12,7 +12,6 @@ describe('plugin', () => {
 
     server.table().forEach(connection => {
       connection.table.forEach(endpoint => {
-        console.log(endpoint.settings.description, endpoint.path);
         routes.push({
           path: endpoint.path,
           method: endpoint.method,
@@ -29,7 +28,6 @@ describe('plugin', () => {
       register: Plugin,
       options,
     }, err => {
-      console.log('---');
       return next(err);
     });
   };

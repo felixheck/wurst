@@ -109,17 +109,18 @@ function prefixRoutes(routes, filePath) {
  */
 function registerRoutes(filePath) {
   const { options, server } = internals;
-  const routes = require(path.join(options.routes, filePath));
+  const modulePath = path.join(options.routes, filePath);
+  const routes = require(modulePath);
   const prefixedRoutes = prefixRoutes(routes, filePath);
 
   server.route(prefixedRoutes);
+  delete require.cache[modulePath];
 }
 
 /**
  * @function
  * @public
  *
- * @param {Object} server The current server object
  * @param {Object} options The plugin options
  * @param {Function} next The callback to return control
  * @returns {*}
