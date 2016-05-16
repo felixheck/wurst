@@ -23,98 +23,122 @@ internals.schemata = {
 };
 
 /**
- * @function
  * @private
- *
- * @description
- * Validate plugin options based on defined schema
+ * 
+ * @classdesc
+ * Autoload and prefix routes
  */
-function validateOptions() {
-  const { options, schemata } = internals;
+class Wurst {
+  server;
+  options;
 
-  joi.assert(options, schemata.options, 'Invalid options');
-}
+  /**
+   * @constructor
+   * @public
+   *
+   * @description
+   * Construct a new instance
+   *
+   * @param {Object} server The corresponding server object
+   * @param {Object} options The passed plugin options
+   */
+  constructor(server, options) {
+    this.server = server;
+    this.options = options;
 
-/**
- * @function
- * @private
- *
- * @description
- * Get list of file paths based on passed options
- *
- * @returns {Array.<?string>} List of file paths
- */
-function getFilePaths() {
-  const { options } = internals;
-
-  return glob.sync('**/*.js', {
-    nodir: true,
-    cwd: options.routes,
-    ignore: options.ignore,
-  });
-}
-
-/**
- * @function
- * @private
- *
- * @description
- * Split file path and drop file name
- *
- * @param {string} filePath The file path to be split
- * @returns {Array.<?string>} List of directories
- */
-function getPathTree(filePath) {
-  const splitPath = filePath.split(path.sep);
-  splitPath.pop();
-
-  return splitPath;
-}
-
-/**
- * @function
- * @private
- *
- * @description
- * Prefix the path for each of the passed routes
- *
- * @param {Array.<?Object> | Object} routes The list of routes
- * @param {string} filePath The related file path
- * @returns {Array.<?Object>} The list of routes with prefixed paths
- */
-function prefixRoutes(routes, filePath) {
-  if (!Array.isArray(routes)) {
-    routes = Array.of(routes);
+    this.validateOptions();
+    this.getFilePaths().forEach(this::this.registerRoutes);
   }
 
-  const pathTree = getPathTree(filePath);
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Validate plugin options based on defined schema
+   */
+  validateOptions() {
+    joi.assert(this.options, internals.schemata.options, 'Invalid options');
+  }
 
-  if (pathTree.length !== 0) {
-    routes.forEach(route => {
-      route.path = `/${pathTree.join('/')}${route.path}`;
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Get list of file paths based on passed options
+   *
+   * @returns {Array.<?string>} List of file paths
+   */
+  getFilePaths() {
+    return glob.sync('**/*.js', {
+      nodir: true,
+      cwd: this.options.routes,
+      ignore: this.options.ignore,
     });
   }
 
-  return routes;
-}
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Split file path and drop file name
+   *
+   * @param {string} filePath The file path to be split
+   * @returns {Array.<?string>} List of directories
+   */
+  getPathTree(filePath) {
+    const splitPath = filePath.split(path.sep);
+    splitPath.pop();
 
-/**
- * @function
- * @private
- *
- * @description
- * Load and register routes
- *
- * @param {string} filePath The file path to be loaded and registered
- */
-function registerRoutes(filePath) {
-  const { options, server } = internals;
-  const modulePath = path.join(options.routes, filePath);
-  const routes = require(modulePath);
-  const prefixedRoutes = prefixRoutes(routes, filePath);
+    return splitPath;
+  }
 
-  server.route(prefixedRoutes);
-  delete require.cache[modulePath];
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Prefix the path for each of the passed routes
+   *
+   * @param {Array.<?Object> | Object} routes The list of routes
+   * @param {string} filePath The related file path
+   * @returns {Array.<?Object>} The list of routes with prefixed paths
+   */
+  prefixRoutes(routes, filePath) {
+    if (!Array.isArray(routes)) {
+      routes = Array.of(routes);
+    }
+
+    const pathTree = this.getPathTree(filePath);
+
+    if (pathTree.length !== 0) {
+      routes.forEach(route => {
+        route.path = `/${pathTree.join('/')}${route.path}`;
+      });
+    }
+
+    return routes;
+  }
+
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Load and register routes
+   *
+   * @param {string} filePath The file path to be loaded and registered
+   */
+  registerRoutes(filePath) {
+    const modulePath = path.join(this.options.routes, filePath);
+    const routes = require(modulePath);
+    const prefixedRoutes = this.prefixRoutes(routes, filePath);
+
+    this.server.route(prefixedRoutes);
+    delete require.cache[modulePath];
+  }
 }
 
 /**
@@ -126,11 +150,7 @@ function registerRoutes(filePath) {
  * @returns {*}
  */
 function routeLoader(server, options, next) {
-  internals.server = server;
-  internals.options = options;
-
-  validateOptions();
-  getFilePaths().forEach(registerRoutes);
+  new Wurst(server, options);
 
   return next();
 }

@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **fix:** refactor
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
