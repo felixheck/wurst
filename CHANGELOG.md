@@ -12,6 +12,7 @@
 - **rmv:** do not lint test directory
 - **add:** functionality to log the route mapping
 - **add:** custom eslint rule (no-unsed-expressions)
+- **fix:** extract Wurst#load
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo

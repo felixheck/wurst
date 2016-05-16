@@ -10,7 +10,8 @@ const Wurst = require('./wurst');
  * @returns {*}
  */
 function pluginLoader(server, options, next) {
-  new Wurst(server, options);
+  const wurstle = new Wurst(server, options);
+  wurstle.load();
 
   return next();
 }

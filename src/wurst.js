@@ -9,6 +9,13 @@ const Joi = require('joi');
  * Autoload and prefix routes
  */
 class Wurst {
+  /**
+   * @type {Object}
+   * @static
+   *
+   * @description
+   * Store joi schemata
+   */
   static schemata = {
     options: Joi.object({
       routes: Joi.string().required(),
@@ -41,11 +48,6 @@ class Wurst {
   constructor(server, options) {
     this.server = server;
     this.options = options;
-
-    this.validateOptions();
-    this.getFilePaths().forEach(this::this.registerRoutes);
-
-    options.log && this.logRouteMapping();
   }
 
   /**
@@ -80,6 +82,20 @@ class Wurst {
     splitPath.pop();
 
     return splitPath;
+  }
+
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Autoload and prefix routes
+   */
+  load() {
+    this.validateOptions();
+    this.getFilePaths().forEach(this::this.registerRoutes);
+
+    this.options.log && this.logRouteMapping();
   }
 
   /**
