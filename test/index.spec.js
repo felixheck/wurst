@@ -38,7 +38,7 @@ describe('plugin', () => {
     return done();
   });
 
-  describe('server.table() specification', () => {
+  describe('registrations', () => {
     it('contains an summary of registered routes', done => {
       pluginOptions = {
         routes: path.join(__dirname, 'routes'),
@@ -54,6 +54,30 @@ describe('plugin', () => {
         return done();
       });
     });
+
+    it('registers the plugin twice', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes'),
+        ignore: 'foo/bar/*.js'
+      };
+
+      register(pluginOptions, err => {});
+
+      pluginOptions = {
+        routes: path.join(__dirname, 'routes/foo/bar')
+      }
+
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(3);
+        expect(filtered.some(route => route.path === '/')).to.be.true;
+        expect(filtered.some(route => route.path === '/foo/foo')).to.be.true;
+        expect(filtered.some(route => route.path === '/foobar')).to.be.true;
+        return done();
+      });
+    })
   });
 
   describe('options.routes specification:', () => {

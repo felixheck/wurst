@@ -20,7 +20,7 @@ function pluginLoader(server, options, next) {
  * @public
  */
 pluginLoader.attributes = {
-  multiple: false,
+  multiple: true,
   pkg,
 };
 
