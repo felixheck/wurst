@@ -112,6 +112,20 @@ describe('plugin', () => {
         return done();
       });
     });
+
+    it('registers no routes', done => {
+      pluginOptions = {
+        routes: path.join(__dirname, 'route'),
+      };
+
+      register(pluginOptions, err => {
+        const filtered = getInfo();
+
+        expect(err).to.not.exist;
+        expect(filtered.length).to.equal(0);
+        return done();
+      });
+    });
   });
 
   describe('options.ignore specification: ', () => {

@@ -6,6 +6,7 @@
 - **fix:** convert Wurst#schemata into Wurst.schemata
 - **fix:** enable multiple registration
 - **doc:** add hint about multiple registration
+- **add:** test specification for non-existing path
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
