@@ -62,6 +62,8 @@ server.register({
 });
 ```
 
+It is possible to register the plugin many times, but it is suggested to use `options.routes` which are not nested in each other.
+
 #### Options
 
 **routes**: `string` `required`<br/>
