@@ -11,6 +11,7 @@
 - **add:** sinon (1.17.4) and sinon-chai (2.8.0)
 - **rmv:** do not lint test directory
 - **add:** functionality to log the route mapping
+- **add:** custom eslint rule (no-unsed-expressions)
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
