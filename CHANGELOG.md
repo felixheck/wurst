@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **doc:** add explanation for options.log
 
 ### [v0.3.0] - 2016-05-16
 - **fix:** refactor
