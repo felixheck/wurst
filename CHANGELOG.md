@@ -1,6 +1,8 @@
 # master
 
 ### unreleased
+
+### [v0.3.0] - 2016-05-16
 - **fix:** refactor
 - **fix:** extract class into new file
 - **fix:** convert Wurst#schemata into Wurst.schemata
@@ -13,6 +15,7 @@
 - **add:** functionality to log the route mapping
 - **add:** custom eslint rule (no-unsed-expressions)
 - **fix:** extract Wurst#load
+- **doc:** update CHANGELOG.md
 
 ### [v0.2.1] - 2016-05-16
 - **doc:** fix typo
