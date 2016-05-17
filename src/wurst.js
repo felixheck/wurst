@@ -31,7 +31,7 @@ class Wurst {
     }).unknown(true),
   };
 
-  routeMap = {};
+  routeList = [];
   server;
   options;
 
@@ -95,7 +95,7 @@ class Wurst {
     this.validateOptions();
     this.getFilePaths().forEach(this::this.registerRoutes);
 
-    this.options.log && this.logRouteMapping();
+    this.options.log && this.logRouteList();
   }
 
   /**
@@ -103,16 +103,15 @@ class Wurst {
    * @public
    *
    * @description
-   * Log the built route map into console
+   * Log the built list of prefixed routes into console
    */
-  logRouteMapping() {
+  logRouteList() {
     let method;
 
     console.info(`\n${this.constructor.name} prefixed the following routes`);
 
-    Object.keys(this.routeMap).forEach(route => {
-      method = this.routeMap[route];
-      console.info('\t', `[${method}]`, route);
+    this.routeList.forEach(route => {
+      console.info('\t', `[${route.method}]`, route.path);
     });
   }
 
@@ -144,7 +143,10 @@ class Wurst {
         prefixedPath = `/${pathTree.join('/')}${route.path}`;
         trimmedPath = prefixedPath.replace(/\/$/, '');
         route.path = trimmedPath;
-        this.routeMap[trimmedPath] = route.method;
+        this.routeList.push({
+          path: trimmedPath,
+          method: route.method
+        });
       });
     }
 
