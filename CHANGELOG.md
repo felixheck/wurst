@@ -2,6 +2,7 @@
 
 ### unreleased
 - **fix:** refactor routeMap -> routeList
+- **fix:** extract #extendRouteList
 
 ### [v0.3.1] - 2016-05-17
 - **doc:** add explanation for options.log

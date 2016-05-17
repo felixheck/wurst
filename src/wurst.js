@@ -1,7 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const Joi = require('joi');
-
+require('babel-polyfill');
 /**
  * @public
  *
@@ -48,6 +48,25 @@ class Wurst {
   constructor(server, options) {
     this.server = server;
     this.options = options;
+  }
+
+  /**
+   * @function
+   * @public
+   *
+   * @description
+   * Extend the list of prefixed routes
+   *
+   * @param {string} origin The former route path
+   * @param {string} modified The modified route path
+   * @param {string} method The concerning HTTP method
+   */
+  extendRouteList(origin, modified, method) {
+    this.routeList.push({
+      path: modified,
+      method,
+      origin,
+    });
   }
 
   /**
@@ -106,12 +125,12 @@ class Wurst {
    * Log the built list of prefixed routes into console
    */
   logRouteList() {
-    let method;
-
     console.info(`\n${this.constructor.name} prefixed the following routes`);
 
     this.routeList.forEach(route => {
-      console.info('\t', `[${route.method}]`, route.path);
+      console.info(
+        '\t', `[${route.method}]`.padEnd(8), route.path
+      );
     });
   }
 
@@ -128,7 +147,6 @@ class Wurst {
    */
   prefixRoutes(routes, filePath) {
     let prefixedPath;
-    let trimmedPath;
 
     if (!Array.isArray(routes)) {
       routes = Array.of(routes);
@@ -139,14 +157,9 @@ class Wurst {
     if (pathTree.length !== 0) {
       routes.forEach(route => {
         this.validateRouteObject(route);
-
-        prefixedPath = `/${pathTree.join('/')}${route.path}`;
-        trimmedPath = prefixedPath.replace(/\/$/, '');
-        route.path = trimmedPath;
-        this.routeList.push({
-          path: trimmedPath,
-          method: route.method
-        });
+        prefixedPath = `/${pathTree.join('/')}${route.path}`.replace(/\/$/, '');
+        this.extendRouteList(route.path, prefixedPath, route.method);
+        route.path = prefixedPath;
       });
     }
 
