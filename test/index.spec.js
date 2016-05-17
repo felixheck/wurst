@@ -63,23 +63,24 @@ describe('plugin', () => {
     it('registers the plugin twice', done => {
       pluginOptions = {
         routes: path.join(__dirname, 'routes'),
-        ignore: 'foo/bar/*.js',
+        ignore: 'foo/**/*.js',
       };
 
       register(pluginOptions, () => {});
 
       pluginOptions = {
-        routes: path.join(__dirname, 'routes/foo/bar'),
+        routes: path.join(__dirname, 'routes/foo'),
       };
 
       register(pluginOptions, err => {
         const filtered = getInfo();
 
         expect(err).to.not.exist;
-        expect(filtered.length).to.equal(3);
+        expect(filtered.length).to.equal(4);
         expect(filtered.some(route => route.path === '/')).to.be.true;
-        expect(filtered.some(route => route.path === '/foo/foo')).to.be.true;
-        expect(filtered.some(route => route.path === '/foobar')).to.be.true;
+        expect(filtered.some(route => route.path === '/foo')).to.be.true;
+        expect(filtered.some(route => route.path === '/bar')).to.be.true;
+        expect(filtered.some(route => route.path === '/bar/foobar')).to.be.true;
         return done();
       });
     });
@@ -95,7 +96,7 @@ describe('plugin', () => {
         const filtered = getInfo();
 
         expect(err).to.not.exist;
-        expect(filtered.length).to.equal(3);
+        expect(filtered.length).to.equal(4);
         expect(filtered.some(route => route.path === '/')).to.be.true;
         expect(filtered.some(route => route.path === '/foo/foo')).to.be.true;
         expect(filtered.some(route => route.path === '/foo/bar/foobar')).to.be.true;
@@ -112,8 +113,9 @@ describe('plugin', () => {
         const filtered = getInfo();
 
         expect(err).to.not.exist;
-        expect(filtered.length).to.equal(1);
-        expect(filtered[0].path).to.equal('/foobar');
+        expect(filtered.length).to.equal(2);
+        expect(filtered.some(route => route.path === '/')).to.be.true;
+        expect(filtered.some(route => route.path === '/foobar')).to.be.true;
         return done();
       });
     });
@@ -189,7 +191,7 @@ describe('plugin', () => {
 
       register(pluginOptions, err => {
         expect(err).to.not.exist;
-        expect(infoSpy).to.have.callCount(3);
+        expect(infoSpy).to.have.callCount(4);
         return done();
       });
     });
