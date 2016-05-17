@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.3.1] - 2016-05-17
 - **doc:** add explanation for options.log
 - **fix:** remove trailing slashes
 - **doc:** add hint about the deletion of trailing slashes
+- **doc:** update CHANGELOG.md
 
 ### [v0.3.0] - 2016-05-16
 - **fix:** refactor
