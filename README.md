@@ -79,8 +79,8 @@ For example:
 
 ```
 Wurst prefixed the following routes
-  [GET] /foo/bar/foobar
-  [POST] -> /foo/foo
+  [GET]   /foo/bar/foobar
+  [POST]  /foo/foo
 ```
 
 ## Example
