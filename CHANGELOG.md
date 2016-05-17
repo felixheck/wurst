@@ -3,6 +3,7 @@
 ### unreleased
 - **doc:** add explanation for options.log
 - **fix:** remove trailing slashes
+- **doc:** add hint about the deletion of trailing slashes
 
 ### [v0.3.0] - 2016-05-16
 - **fix:** refactor

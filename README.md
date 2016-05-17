@@ -79,8 +79,8 @@ For example:
 
 ```
 Wurst prefixed the following routes
-  /foobar -> /foo/bar/foobar
-  /foo -> /foo/foo
+  [GET] /foo/bar/foobar
+  [POST] -> /foo/foo
 ```
 
 ## Example
@@ -118,7 +118,7 @@ const routes = [
 module.exports = routes;
 ```
 
-After starting the server the following routes are available:
+After starting the server the following routes are available. Trailing slashes - excepted at `/` - will be removed automatically.
 
 ```
 [GET] /
