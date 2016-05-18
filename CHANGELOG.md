@@ -2,6 +2,7 @@
 
 ### unreleased
 - **fix:** convert class into OLOO syntax and extract factory
+- **fix:** move babel-polyfill integration to entry point
 
 ### [v0.3.2] - 2016-05-18
 - **fix:** refactor routeMap -> routeList

@@ -1,5 +1,6 @@
 const pkg = require('../package.json');
 const Wurst = require('./wurst');
+require('babel-polyfill');
 
 /**
  * @function

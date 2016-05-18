@@ -1,5 +1,4 @@
 const factory = require('./factory');
-require('babel-polyfill');
 
 /**
  * @namespace
