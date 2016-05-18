@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **fix:** convert class into OLOO syntax and extract factory
 
 ### [v0.3.2] - 2016-05-18
 - **fix:** refactor routeMap -> routeList
