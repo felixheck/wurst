@@ -12,8 +12,7 @@ require('babel-polyfill');
  * @returns {*}
  */
 function pluginLoader(server, options, next) {
-  const wurstle = Wurst.factory(server, options);
-  wurstle.load();
+  Wurst.factory(server, options).load();
 
   return next();
 }
