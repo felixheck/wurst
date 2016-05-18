@@ -5,6 +5,7 @@ const Wurst = require('./wurst');
  * @function
  * @public
  *
+ * @param {Object} server The current server object
  * @param {Object} options The plugin options
  * @param {Function} next The callback to return control
  * @returns {*}
