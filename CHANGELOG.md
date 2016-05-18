@@ -3,6 +3,7 @@
 ### unreleased
 - **fix:** refactor routeMap -> routeList
 - **fix:** extract #extendRouteList
+- **fix:** convert class into OLOO syntax and extract factory
 
 ### [v0.3.1] - 2016-05-17
 - **doc:** add explanation for options.log
