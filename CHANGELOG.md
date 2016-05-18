@@ -1,11 +1,14 @@
 # master
 
 ### unreleased
+
+### [v0.3.2] - 2016-05-18
 - **fix:** refactor routeMap -> routeList
 - **fix:** extract #extendRouteList
 - **doc:** fix typo
 - **upg:** babel-cli, babel-core and babel-preset-2015 (6.8.0 -> 6.9.0) and eslint (2.10.1 -> 2.10.2)
 - **add:** documentation of parameter
+- **doc:** update CHANGELOG.md
 
 ### [v0.3.1] - 2016-05-17
 - **doc:** add explanation for options.log
