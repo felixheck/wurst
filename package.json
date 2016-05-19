@@ -31,17 +31,14 @@
     "mochaOptions": "test/** --colors --reporter min --compilers js:babel-core/register"
   },
   "scripts": {
+    "prebuild": "rm -rf lib",
     "build": "babel -d lib src",
+    "precoverage": "rm -rf coverage",
     "coverage": "NODE_ENV=test istanbul cover _mocha -- $npm_package_config_mochaOptions",
     "lint": "eslint --ext .js src",
+    "prepublish": "npm run build",
     "start": "npm run test -- --watch",
-    "test": "NODE_ENV=test mocha $npm_package_config_mochaOptions",
-    "release:major": "npm version major && npm publish && git push --follow-tags",
-    "release:minor": "npm version minor && npm publish && git push --follow-tags",
-    "release:patch": "npm version patch && npm publish && git push --follow-tags",
-    "prebuild": "rm -rf lib",
-    "precoverage": "rm -rf coverage",
-    "prepublish": "npm run build"
+    "test": "NODE_ENV=test mocha $npm_package_config_mochaOptions"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",
