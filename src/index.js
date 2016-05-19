@@ -1,3 +1,10 @@
+/*!
+ * @author Felix Heck <hi@whoTheHeck.de>
+ * @version 0.4.0
+ * @copyright Felix Heck 2016
+ * @license MIT
+ */
+
 const pkg = require('../package.json');
 const Wurst = require('./wurst');
 require('babel-polyfill');
