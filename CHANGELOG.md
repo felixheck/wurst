@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.4.3] - 2016-05-19
 - **fix:** rename Wurst.factory into Wurst.init
 - **rmv:** unneeded console statements
 - **fix:** rename factory into plugin
+- **doc:** update CHANGELOG.md
 
 ### [v0.4.2] - 2016-05-19
 - **add:** function to check if arguments passed to oolo are objects
