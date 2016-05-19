@@ -7,6 +7,7 @@
 
 const pkg = require('../package.json');
 const Wurst = require('./wurst');
+const factory = require('./factory');
 require('babel-polyfill');
 
 /**
@@ -19,7 +20,10 @@ require('babel-polyfill');
  * @returns {*}
  */
 function pluginLoader(server, options, next) {
-  Wurst.factory(server, options).load();
+  const test = Wurst.init(server, options)
+  test.load();
+
+  console.log(factory.isPrototypeOf(test));
 
   return next();
 }

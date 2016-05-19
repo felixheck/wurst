@@ -9,7 +9,7 @@ const oloo = require('./oloo');
  * Host all related object factories
  */
 const Wurst = {
-  factory(server, options) {
+  init(server, options) {
     return oloo(factory, {
       server,
       options,
