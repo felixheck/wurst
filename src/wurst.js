@@ -1,4 +1,4 @@
-const factory = require('./factory');
+const plugin = require('./plugin');
 const oloo = require('./oloo');
 
 /**
@@ -9,8 +9,10 @@ const oloo = require('./oloo');
  * Host all related object factories
  */
 const Wurst = {
+  plugin,
+  
   init(server, options) {
-    return oloo(factory, {
+    return oloo(plugin, {
       server,
       options,
       routeList: [],
