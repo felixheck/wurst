@@ -10,7 +10,7 @@ const oloo = require('./oloo');
  */
 const Wurst = {
   plugin,
-  
+
   init(server, options) {
     return oloo(plugin, {
       server,
