@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **add:** function to check if arguments passed to oolo are objects
 
 ### [v0.4.1] - 2016-05-19
 - **add:** documentation of entry factory file
