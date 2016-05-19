@@ -5,7 +5,7 @@ const Joi = require('joi');
 /**
  * @type {Object}
  * @public
- * 
+ *
  * @memberOf Wurst
  *
  * @description

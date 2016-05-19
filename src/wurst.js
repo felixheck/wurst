@@ -1,4 +1,5 @@
 const factory = require('./factory');
+const oloo = require('./oloo');
 
 /**
  * @namespace
@@ -9,7 +10,7 @@ const factory = require('./factory');
  */
 const Wurst = {
   factory(server, options) {
-    return Object.assign({}, factory, {
+    return oloo(factory, {
       server,
       options,
       routeList: [],

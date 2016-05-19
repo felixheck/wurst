@@ -3,6 +3,7 @@
 ### unreleased
 - **add:** documentation of entry factory file
 - **fix:** npm scripts
+- **add:** OLOO function to combine objects by linking
 
 ### [v0.4.0] - 2016-05-19
 - **fix:** convert class into OLOO syntax and extract factory
