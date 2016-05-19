@@ -1,7 +1,10 @@
 # master
 
 ### unreleased
+
+### [v0.4.2] - 2016-05-19
 - **add:** function to check if arguments passed to oolo are objects
+- **doc:** update CHANGELOG.md
 
 ### [v0.4.1] - 2016-05-19
 - **add:** documentation of entry factory file
