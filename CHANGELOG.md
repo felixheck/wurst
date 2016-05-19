@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.4.0] - 2016-05-19
 - **fix:** convert class into OLOO syntax and extract factory
 - **fix:** move babel-polyfill integration to entry point
 - **fix**: simplify plugin loading
+- **doc:** update CHANGELOG.md
 
 ### [v0.3.2] - 2016-05-18
 - **fix:** refactor routeMap -> routeList
