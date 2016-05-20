@@ -4,6 +4,7 @@
 - **fix:** linting
 - **add:** custom eslint rule (no-else-return)
 - **fix:** adjust eslint rules
+- **doc:** add chapter for next steps
 
 ### [v0.4.3] - 2016-05-19
 - **fix:** rename Wurst.factory into Wurst.init

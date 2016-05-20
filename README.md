@@ -157,6 +157,12 @@ Fork this repository and push in your ideas.
 
 Do not forget to add corresponding tests to keep up 100% test coverage.
 
+
+## Next Steps
+
+- Default value for `options.routes`
+- Default value for `options.log`
+
 ## License
 The MIT License
 
