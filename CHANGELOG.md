@@ -1,6 +1,9 @@
 # master
 
 ### unreleased
+- **doc:** update CHANGELOG.md
+
+### [v0.4.4] - 2016-05-20
 - **fix:** linting
 - **add:** custom eslint rule (no-else-return)
 - **fix:** adjust eslint rules
