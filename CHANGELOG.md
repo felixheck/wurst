@@ -2,6 +2,7 @@
 
 ### unreleased
 - **doc:** update CHANGELOG.md
+- **doc:** add next steps to TOC
 
 ### [v0.4.4] - 2016-05-20
 - **fix:** linting
