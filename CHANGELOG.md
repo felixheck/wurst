@@ -3,6 +3,7 @@
 ### unreleased
 - **doc:** update CHANGELOG.md
 - **doc:** add next steps to TOC
+- **upg:** eslint-plugin-jsx-a11y (1.2.0 ->1.2.2) und hapi (13.4.0 -> 13.4.1)
 
 ### [v0.4.4] - 2016-05-20
 - **fix:** linting
