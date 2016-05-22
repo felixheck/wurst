@@ -68,13 +68,16 @@ It is possible to register the plugin many times, but it is suggested to use `op
 
 #### Options
 
-**routes**: `string` `required`<br/>
+**routes**: `string`<br/>
+Optional. Default: `__dirname`<br/>
 The absolute path to the routes directory.
 
-**ignore**: `string | Array.<?string>` `optional`<br/>
+**ignore**: `string | Array.<?string>`<br/>
+Optional<br/>
 The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
 
-**log**: `boolean` `optional`<br/>
+**log**: `boolean`<br/>
+Optional. Default: `false`<br/>
 If `true`, the plugins logs the prefixed routes into console.<br/>
 For example:
 
@@ -161,8 +164,6 @@ Do not forget to add corresponding tests to keep up 100% test coverage.
 
 ## Next Steps
 
-- Default value for `options.routes`
-- Default value for `options.log`
 
 ## License
 The MIT License

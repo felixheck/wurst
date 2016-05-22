@@ -25,12 +25,12 @@ const factory = {
    */
   schemata: {
     options: Joi.object({
-      routes: Joi.string().required(),
+      routes: Joi.string().default(__dirname),
       ignore: [
         Joi.string(),
         Joi.array().items(Joi.string()),
       ],
-      log: Joi.boolean(),
+      log: Joi.boolean().default(false),
     }),
     routeObject: Joi.object({
       path: Joi.string().required(),
@@ -180,7 +180,7 @@ const factory = {
    * Validate plugin options based on defined schema
    */
   validateOptions() {
-    Joi.assert(this.options, this.schemata.options, 'Invalid options');
+    this.options = Joi.attempt(this.options, this.schemata.options, 'Invalid options');
   },
 
   /**
