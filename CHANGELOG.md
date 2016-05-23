@@ -1,6 +1,9 @@
 # master
 
 ### unreleased
+- **doc:** update CHANGELOG.md
+
+### [v0.5.1] - 2016-05-23
 - **upg:** mocha (2.4.5 -> 2.5.1)
 - **add:** test specification for src/oloo
 
