@@ -54,7 +54,7 @@
     "eslint-plugin-jsx-a11y": "^1.2.2",
     "hapi": "^13.4.1",
     "istanbul": "^1.0.0-alpha.2",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.1",
     "sinon": "^1.17.4",
     "sinon-chai": "^2.8.0"
   },

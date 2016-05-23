@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **upg:** mocha (2.4.5 -> 2.5.1)
 
 ### [v0.5.0] - 2016-05-22
 - **doc:** update CHANGELOG.md
