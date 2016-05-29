@@ -34,7 +34,7 @@
     "prebuild": "rm -rf lib",
     "build": "babel -d lib src",
     "precoverage": "rm -rf coverage",
-    "coverage": "NODE_ENV=test istanbul cover tape -- $npm_package_config_tapeOptions",
+    "coverage": "NODE_ENV=test istanbul cover tape -- $npm_package_config_tapeOptions | tap-spec",
     "lint": "eslint --ext .js src",
     "prepublish": "npm run build",
     "start": "watch 'npm test' src test --wait 5 --interval 1",
