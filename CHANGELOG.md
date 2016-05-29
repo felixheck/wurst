@@ -3,6 +3,7 @@
 ### unreleased
 - **fix:** rename closure parameters
 - **add:** custom reporter to coverage scripts
+- **rmv:** mocha globals
 
 ### [v0.6.0] - 2016-05-29
 - **doc:** update CHANGELOG.md

@@ -1,9 +1,6 @@
 {
   "parser": "babel-eslint",
   "extends": "airbnb-base",
-  "env": {
-    "mocha": true
-  },
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
