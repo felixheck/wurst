@@ -222,7 +222,7 @@ test('plugin/options.ignore >> ignores multiple route files', t => {
  * Options.log specification
  */
 
-test('outputs the mapping', t => {
+test('plugin/options.log >> outputs the mapping', t => {
   setup();
 
   pluginOptions = {
@@ -239,7 +239,7 @@ test('outputs the mapping', t => {
   teardown();
 });
 
-test('does not output the mapping', t => {
+test('plugin/options.log >> does not output the mapping', t => {
   setup();
 
   pluginOptions = {
