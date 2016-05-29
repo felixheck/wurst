@@ -1,7 +1,5 @@
-const chai = require('chai');
+const test = require('tape').test;
 const oloo = require('../src/oloo');
-
-const expect = chai.expect;
 
 const mockObj_1 = {
   foo: 'foo'
@@ -11,21 +9,22 @@ const mockObj_2 = {
   bar: 'bar'
 };
 
-describe('oloo', () => {
-  it('returns null', () => {
-    expect(oloo('foo', 42)).to.equal(null);
-  });
+test('oloo >> returns null', assert => {
+  assert.equal(oloo('foo', 42), null);
+  assert.end();
+});
 
-  it('merges objects', () => {
-    expect(oloo(mockObj_1, mockObj_2)).to.eql({
-      foo: 'foo',
-      bar: 'bar'
-    })
-  });
+test('oloo >> merges objects', assert => {
+  const merged = oloo(mockObj_1, mockObj_2);
 
-  it('defines first object as prototype', () => {
-    const merged = oloo(mockObj_1, mockObj_2);
+  assert.equal(merged.foo, 'foo');
+  assert.equal(merged.bar, 'bar');
+  assert.end();
+});
 
-    expect(Object.getPrototypeOf(merged)).to.eql(mockObj_1);
-  });
+test('oloo >> defines first object as prototype', assert => {
+  const merged = oloo(mockObj_1, mockObj_2);
+
+  assert.deepEqual(Object.getPrototypeOf(merged), mockObj_1);
+  assert.end();
 });
