@@ -1,211 +1,256 @@
-const chai = require('chai');
+const test = require('tape').test;
 const sinon = require('sinon');
-const sinonChai = require('sinon-chai');
 const Hapi = require('hapi');
 const path = require('path');
 const Plugin = require('../src');
 
-const expect = chai.expect;
-chai.use(sinonChai);
+/**
+ * Utils
+ */
 
-describe('plugin', () => {
-  let server;
-  let pluginOptions;
+const getInfo = () => {
+  const routes = [];
 
-  const getInfo = () => {
-    const routes = [];
-
-    server.table().forEach(connection => {
-      connection.table.forEach(endpoint => {
-        routes.push({
-          path: endpoint.path,
-          method: endpoint.method,
-          description: endpoint.settings.description,
-        });
+  server.table().forEach(connection => {
+    connection.table.forEach(endpoint => {
+      routes.push({
+        path: endpoint.path,
+        method: endpoint.method,
+        description: endpoint.settings.description,
       });
     });
+  });
 
-    return routes;
+  return routes;
+};
+
+const register = (options, next) => {
+  server.register({
+    register: Plugin,
+    options,
+  },
+    err => next(err)
+  );
+};
+
+/**
+ * Hooks
+ */
+
+const setup = () => {
+  infoSpy = sinon.spy(console, 'info');
+  server = new Hapi.Server();
+  server.connection();
+}
+
+const teardown = () => {
+  infoSpy.restore();
+}
+
+/**
+ * States
+ */
+
+let server;
+let pluginOptions;
+let infoSpy;
+
+/**
+ * Registration
+ */
+
+test('plugin/registration >> contains an summary of registered routes', assert => {
+  setup();
+
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
   };
 
-  const register = (options, next) => {
-    server.register({
-      register: Plugin,
-      options,
-    },
-      err => next(err)
-    );
+  register(pluginOptions, err => {
+    const filtered = getInfo(server).every(route => (
+      route && route.path && route.method && route.description
+    ));
+
+    assert.notOk(err);
+    assert.ok(filtered);
+    assert.end();
+  });
+
+  teardown();
+});
+
+test('plugin/registration >> registers the plugin twice', assert => {
+  setup();
+
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
+    ignore: 'foo/**/*.js',
   };
 
-  beforeEach(done => {
-    server = new Hapi.Server();
-    server.connection();
-    return done();
+  register(pluginOptions, () => {});
+
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes/foo'),
+  };
+
+  register(pluginOptions, err => {
+    const filtered = getInfo();
+
+    assert.notOk(err);
+    assert.equal(filtered.length, 4);
+    assert.ok(filtered.some(route => route.path === '/'));
+    assert.ok(filtered.some(route => route.path === '/foo'));
+    assert.ok(filtered.some(route => route.path === '/bar'));
+    assert.ok(filtered.some(route => route.path === '/bar/foobar'));
+    assert.end();
   });
 
-  describe('registrations', () => {
-    it('contains an summary of registered routes', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-      };
+  teardown();
+});
 
-      register(pluginOptions, err => {
-        const filtered = getInfo(server).every(route => (
-          route && route.path && route.method && route.description
-        ));
+/**
+ * Options.routes specification
+ */
 
-        expect(err).to.not.exist;
-        expect(filtered).to.equal(true);
-        return done();
-      });
-    });
+test('plugin/options.routes >> registers a directory with nested directories', assert => {
+  setup();
+  
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
+  };
 
-    it('registers the plugin twice', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-        ignore: 'foo/**/*.js',
-      };
+  register(pluginOptions, err => {
+    const filtered = getInfo();
 
-      register(pluginOptions, () => {});
-
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes/foo'),
-      };
-
-      register(pluginOptions, err => {
-        const filtered = getInfo();
-
-        expect(err).to.not.exist;
-        expect(filtered.length).to.equal(4);
-        expect(filtered.some(route => route.path === '/')).to.be.true;
-        expect(filtered.some(route => route.path === '/foo')).to.be.true;
-        expect(filtered.some(route => route.path === '/bar')).to.be.true;
-        expect(filtered.some(route => route.path === '/bar/foobar')).to.be.true;
-        return done();
-      });
-    });
+    assert.notOk(err);
+    assert.equal(filtered.length, 4);
+    assert.ok(filtered.some(route => route.path === '/'));
+    assert.ok(filtered.some(route => route.path === '/foo/foo'));
+    assert.ok(filtered.some(route => route.path === '/foo/bar/foobar'));
+    assert.end()
   });
 
-  describe('options.routes specification:', () => {
-    it('registers a directory with nested directories', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-      };
+  teardown();
+});
 
-      register(pluginOptions, err => {
-        const filtered = getInfo();
+test('plugin/options.routes >> registers just a nested directory', assert => {
+  setup();
 
-        expect(err).to.not.exist;
-        expect(filtered.length).to.equal(4);
-        expect(filtered.some(route => route.path === '/')).to.be.true;
-        expect(filtered.some(route => route.path === '/foo/foo')).to.be.true;
-        expect(filtered.some(route => route.path === '/foo/bar/foobar')).to.be.true;
-        return done();
-      });
-    });
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes/foo/bar'),
+  };
 
-    it('registers just a nested directory', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes/foo/bar'),
-      };
+  register(pluginOptions, err => {
+    const filtered = getInfo();
 
-      register(pluginOptions, err => {
-        const filtered = getInfo();
-
-        expect(err).to.not.exist;
-        expect(filtered.length).to.equal(2);
-        expect(filtered.some(route => route.path === '/')).to.be.true;
-        expect(filtered.some(route => route.path === '/foobar')).to.be.true;
-        return done();
-      });
-    });
-
-    it('registers no routes', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'route'),
-      };
-
-      register(pluginOptions, err => {
-        const filtered = getInfo();
-
-        expect(err).to.not.exist;
-        expect(filtered.length).to.equal(0);
-        return done();
-      });
-    });
+    assert.notOk(err);
+    assert.equal(filtered.length, 2);
+    assert.ok(filtered.some(route => route.path === '/'));
+    assert.ok(filtered.some(route => route.path === '/foobar'));
+    assert.end();
   });
 
-  describe('options.ignore specification: ', () => {
-    it('ignores a single route file', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-        ignore: 'foo/bar/*.js',
-      };
+  teardown();
+});
 
-      register(pluginOptions, err => {
-        const filtered = getInfo().filter(route => (
-          route.description === 'foobar'
-        ));
+test('plugin/options.routes >> registers no routes', assert => {
+  setup();
 
-        expect(err).to.not.exist;
-        expect(filtered.length).to.equal(0);
-        return done();
-      });
-    });
+  pluginOptions = {
+    routes: path.join(__dirname, 'route'),
+  };
 
-    it('ignores multiple route files', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-        ignore: [
-          'foo/bar/*.js',
-          'foo/*.js',
-        ],
-      };
+  register(pluginOptions, err => {
+    const filtered = getInfo();
 
-      register(pluginOptions, err => {
-        const filtered = getInfo();
-
-        expect(err).to.not.exist;
-        expect(filtered.length).to.equal(1);
-        return done();
-      });
-    });
+    assert.notOk(err);
+    assert.equal(filtered.length, 0);
+    assert.end();
   });
 
-  describe('options.log specification: ', () => {
-    let infoSpy;
+  teardown();
+});
 
-    beforeEach(() => {
-      infoSpy = sinon.spy(console, 'info');
-    });
+/**
+ * Options.ignore specification
+ */
 
-    afterEach(() => {
-      infoSpy.restore();
-    });
+test('plugin/options.ignore >> ignores a single route file', assert => {
+  setup();
 
-    it('outputs the mapping', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-        log: true,
-      };
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
+    ignore: 'foo/bar/*.js',
+  };
 
-      register(pluginOptions, err => {
-        expect(err).to.not.exist;
-        expect(infoSpy).to.have.callCount(4);
-        return done();
-      });
-    });
+  register(pluginOptions, err => {
+    const filtered = getInfo().filter(route => (
+      route.description === 'foobar'
+    ));
 
-    it('does not output the mapping', done => {
-      pluginOptions = {
-        routes: path.join(__dirname, 'routes'),
-      };
-
-      register(pluginOptions, err => {
-        expect(err).to.not.exist;
-        expect(infoSpy).to.have.callCount(0);
-        return done();
-      });
-    });
+    assert.notOk(err);
+    assert.equal(filtered.length, 0);
+    assert.end();
   });
+
+  teardown();
+});
+
+test('plugin/options.ignore >> ignores multiple route files', assert => {
+  setup();
+
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
+    ignore: [
+      'foo/bar/*.js',
+      'foo/*.js',
+    ],
+  };
+
+  register(pluginOptions, err => {
+    const filtered = getInfo();
+
+    assert.notOk(err);
+    assert.equal(filtered.length, 1);
+    assert.end();
+  });
+
+  teardown();
+});
+
+/**
+ * Options.log specification
+ */
+
+test('outputs the mapping', assert => {
+  setup();
+
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
+    log: true,
+  };
+
+  register(pluginOptions, err => {
+    assert.notOk(err);
+    assert.equal(infoSpy.callCount, 4);
+    assert.end();
+  });
+
+  teardown();
+});
+
+test('does not output the mapping', assert => {
+  setup();
+
+  pluginOptions = {
+    routes: path.join(__dirname, 'routes'),
+  };
+
+  register(pluginOptions, err => {
+    assert.notOk(err);
+    assert.equal(infoSpy.callCount, 0);
+    assert.end();
+  });
+
+  teardown();
 });
