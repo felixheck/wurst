@@ -9,22 +9,22 @@ const mockObj_2 = {
   bar: 'bar'
 };
 
-test('oloo >> returns null', assert => {
-  assert.equal(oloo('foo', 42), null);
-  assert.end();
+test('oloo >> returns null', t => {
+  t.equal(oloo('foo', 42), null);
+  t.end();
 });
 
-test('oloo >> merges objects', assert => {
+test('oloo >> merges objects', t => {
   const merged = oloo(mockObj_1, mockObj_2);
 
-  assert.equal(merged.foo, 'foo');
-  assert.equal(merged.bar, 'bar');
-  assert.end();
+  t.equal(merged.foo, 'foo');
+  t.equal(merged.bar, 'bar');
+  t.end();
 });
 
-test('oloo >> defines first object as prototype', assert => {
+test('oloo >> defines first object as prototype', t => {
   const merged = oloo(mockObj_1, mockObj_2);
 
-  assert.deepEqual(Object.getPrototypeOf(merged), mockObj_1);
-  assert.end();
+  t.deepEqual(Object.getPrototypeOf(merged), mockObj_1);
+  t.end();
 });

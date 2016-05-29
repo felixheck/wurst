@@ -59,7 +59,7 @@ let infoSpy;
  * Registration
  */
 
-test('plugin/registration >> contains an summary of registered routes', assert => {
+test('plugin/registration >> contains an summary of registered routes', t => {
   setup();
 
   pluginOptions = {
@@ -71,15 +71,15 @@ test('plugin/registration >> contains an summary of registered routes', assert =
       route && route.path && route.method && route.description
     ));
 
-    assert.notOk(err);
-    assert.ok(filtered);
-    assert.end();
+    t.notOk(err);
+    t.ok(filtered);
+    t.end();
   });
 
   teardown();
 });
 
-test('plugin/registration >> registers the plugin twice', assert => {
+test('plugin/registration >> registers the plugin twice', t => {
   setup();
 
   pluginOptions = {
@@ -96,13 +96,13 @@ test('plugin/registration >> registers the plugin twice', assert => {
   register(pluginOptions, err => {
     const filtered = getInfo();
 
-    assert.notOk(err);
-    assert.equal(filtered.length, 4);
-    assert.ok(filtered.some(route => route.path === '/'));
-    assert.ok(filtered.some(route => route.path === '/foo'));
-    assert.ok(filtered.some(route => route.path === '/bar'));
-    assert.ok(filtered.some(route => route.path === '/bar/foobar'));
-    assert.end();
+    t.notOk(err);
+    t.equal(filtered.length, 4);
+    t.ok(filtered.some(route => route.path === '/'));
+    t.ok(filtered.some(route => route.path === '/foo'));
+    t.ok(filtered.some(route => route.path === '/bar'));
+    t.ok(filtered.some(route => route.path === '/bar/foobar'));
+    t.end();
   });
 
   teardown();
@@ -112,7 +112,7 @@ test('plugin/registration >> registers the plugin twice', assert => {
  * Options.routes specification
  */
 
-test('plugin/options.routes >> registers a directory with nested directories', assert => {
+test('plugin/options.routes >> registers a directory with nested directories', t => {
   setup();
   
   pluginOptions = {
@@ -122,18 +122,18 @@ test('plugin/options.routes >> registers a directory with nested directories', a
   register(pluginOptions, err => {
     const filtered = getInfo();
 
-    assert.notOk(err);
-    assert.equal(filtered.length, 4);
-    assert.ok(filtered.some(route => route.path === '/'));
-    assert.ok(filtered.some(route => route.path === '/foo/foo'));
-    assert.ok(filtered.some(route => route.path === '/foo/bar/foobar'));
-    assert.end()
+    t.notOk(err);
+    t.equal(filtered.length, 4);
+    t.ok(filtered.some(route => route.path === '/'));
+    t.ok(filtered.some(route => route.path === '/foo/foo'));
+    t.ok(filtered.some(route => route.path === '/foo/bar/foobar'));
+    t.end()
   });
 
   teardown();
 });
 
-test('plugin/options.routes >> registers just a nested directory', assert => {
+test('plugin/options.routes >> registers just a nested directory', t => {
   setup();
 
   pluginOptions = {
@@ -143,17 +143,17 @@ test('plugin/options.routes >> registers just a nested directory', assert => {
   register(pluginOptions, err => {
     const filtered = getInfo();
 
-    assert.notOk(err);
-    assert.equal(filtered.length, 2);
-    assert.ok(filtered.some(route => route.path === '/'));
-    assert.ok(filtered.some(route => route.path === '/foobar'));
-    assert.end();
+    t.notOk(err);
+    t.equal(filtered.length, 2);
+    t.ok(filtered.some(route => route.path === '/'));
+    t.ok(filtered.some(route => route.path === '/foobar'));
+    t.end();
   });
 
   teardown();
 });
 
-test('plugin/options.routes >> registers no routes', assert => {
+test('plugin/options.routes >> registers no routes', t => {
   setup();
 
   pluginOptions = {
@@ -163,9 +163,9 @@ test('plugin/options.routes >> registers no routes', assert => {
   register(pluginOptions, err => {
     const filtered = getInfo();
 
-    assert.notOk(err);
-    assert.equal(filtered.length, 0);
-    assert.end();
+    t.notOk(err);
+    t.equal(filtered.length, 0);
+    t.end();
   });
 
   teardown();
@@ -175,7 +175,7 @@ test('plugin/options.routes >> registers no routes', assert => {
  * Options.ignore specification
  */
 
-test('plugin/options.ignore >> ignores a single route file', assert => {
+test('plugin/options.ignore >> ignores a single route file', t => {
   setup();
 
   pluginOptions = {
@@ -188,15 +188,15 @@ test('plugin/options.ignore >> ignores a single route file', assert => {
       route.description === 'foobar'
     ));
 
-    assert.notOk(err);
-    assert.equal(filtered.length, 0);
-    assert.end();
+    t.notOk(err);
+    t.equal(filtered.length, 0);
+    t.end();
   });
 
   teardown();
 });
 
-test('plugin/options.ignore >> ignores multiple route files', assert => {
+test('plugin/options.ignore >> ignores multiple route files', t => {
   setup();
 
   pluginOptions = {
@@ -210,9 +210,9 @@ test('plugin/options.ignore >> ignores multiple route files', assert => {
   register(pluginOptions, err => {
     const filtered = getInfo();
 
-    assert.notOk(err);
-    assert.equal(filtered.length, 1);
-    assert.end();
+    t.notOk(err);
+    t.equal(filtered.length, 1);
+    t.end();
   });
 
   teardown();
@@ -222,7 +222,7 @@ test('plugin/options.ignore >> ignores multiple route files', assert => {
  * Options.log specification
  */
 
-test('outputs the mapping', assert => {
+test('outputs the mapping', t => {
   setup();
 
   pluginOptions = {
@@ -231,15 +231,15 @@ test('outputs the mapping', assert => {
   };
 
   register(pluginOptions, err => {
-    assert.notOk(err);
-    assert.equal(infoSpy.callCount, 4);
-    assert.end();
+    t.notOk(err);
+    t.equal(infoSpy.callCount, 4);
+    t.end();
   });
 
   teardown();
 });
 
-test('does not output the mapping', assert => {
+test('does not output the mapping', t => {
   setup();
 
   pluginOptions = {
@@ -247,9 +247,9 @@ test('does not output the mapping', assert => {
   };
 
   register(pluginOptions, err => {
-    assert.notOk(err);
-    assert.equal(infoSpy.callCount, 0);
-    assert.end();
+    t.notOk(err);
+    t.equal(infoSpy.callCount, 0);
+    t.end();
   });
 
   teardown();

@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **fix:** rename closure parameters
 
 ### [v0.6.0] - 2016-05-29
 - **doc:** update CHANGELOG.md
