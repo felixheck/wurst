@@ -2,6 +2,7 @@
 
 ### unreleased
 - **doc:** update CHANGELOG.md
+- **upg:** joi (-> 8.3.0), eslint (-> 2.11.0) eslint-plugin-import( -> 1.8.1) and mocha (-> 2.5.3)
 
 ### [v0.5.1] - 2016-05-23
 - **upg:** mocha (2.4.5 -> 2.5.1)
