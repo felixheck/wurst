@@ -1,11 +1,14 @@
 # master
 
 ### unreleased
+
+### [v0.6.1] - 2016-05-30
 - **fix:** rename closure parameters
 - **add:** custom reporter to coverage scripts
 - **rmv:** mocha globals
 - **fix:** add info to specification description
 - **doc:** add next steps
+- **doc:** update CHANGELOG.md
 
 ### [v0.6.0] - 2016-05-29
 - **doc:** update CHANGELOG.md
