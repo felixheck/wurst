@@ -8,7 +8,7 @@ const Plugin = require('../src');
  * Utils
  */
 
-const getInfo = () => {
+const getInfo = server => {
   const routes = [];
 
   server.table().forEach(connection => {
@@ -24,11 +24,11 @@ const getInfo = () => {
   return routes;
 };
 
-const register = (options, next) => {
+const register = (server, options, next) => {
   server.register({
-    register: Plugin,
-    options,
-  },
+      register: Plugin,
+      options,
+    },
     err => next(err)
   );
 };
@@ -38,36 +38,34 @@ const register = (options, next) => {
  */
 
 const setup = () => {
-  infoSpy = sinon.spy(console, 'info');
-  server = new Hapi.Server();
-  server.connection();
+  const fixtures = {
+    infoSpy: sinon.spy(console, 'info'),
+    server: new Hapi.Server(),
+  };
+
+  fixtures.server.connection();
+
+  return fixtures;
 }
 
-const teardown = () => {
-  infoSpy.restore();
+const teardown = fixtures => {
+  fixtures.infoSpy.restore();
 }
 
-/**
- * States
- */
-
-let server;
-let pluginOptions;
-let infoSpy;
 
 /**
  * Registration
  */
 
 test('plugin/registration >> contains an summary of registered routes', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo(server).every(route => (
+  register(fixtures.server, pluginOptions, err => {
+    const filtered = getInfo(fixtures.server).every(route => (
       route && route.path && route.method && route.description
     ));
 
@@ -76,25 +74,25 @@ test('plugin/registration >> contains an summary of registered routes', t => {
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 test('plugin/registration >> registers the plugin twice', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
     ignore: 'foo/**/*.js',
   };
 
-  register(pluginOptions, () => {});
-
-  pluginOptions = {
+  const pluginOptions2 = {
     routes: path.join(__dirname, 'routes/foo'),
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo();
+  register(fixtures.server, pluginOptions, () => {});
+
+  register(fixtures.server, pluginOptions2, err => {
+    const filtered = getInfo(fixtures.server);
 
     t.notOk(err);
     t.equal(filtered.length, 4);
@@ -105,7 +103,7 @@ test('plugin/registration >> registers the plugin twice', t => {
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 /**
@@ -113,14 +111,14 @@ test('plugin/registration >> registers the plugin twice', t => {
  */
 
 test('plugin/options.routes >> registers a directory with nested directories', t => {
-  setup();
-  
-  pluginOptions = {
+  const fixtures = setup();
+
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo();
+  register(fixtures.server, pluginOptions, err => {
+    const filtered = getInfo(fixtures.server);
 
     t.notOk(err);
     t.equal(filtered.length, 4);
@@ -130,18 +128,18 @@ test('plugin/options.routes >> registers a directory with nested directories', t
     t.end()
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 test('plugin/options.routes >> registers just a nested directory', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes/foo/bar'),
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo();
+  register(fixtures.server, pluginOptions, err => {
+    const filtered = getInfo(fixtures.server);
 
     t.notOk(err);
     t.equal(filtered.length, 2);
@@ -150,25 +148,25 @@ test('plugin/options.routes >> registers just a nested directory', t => {
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 test('plugin/options.routes >> registers no routes', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'route'),
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo();
+  register(fixtures.server, pluginOptions, err => {
+    const filtered = getInfo(fixtures.server);
 
     t.notOk(err);
     t.equal(filtered.length, 0);
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 /**
@@ -176,15 +174,15 @@ test('plugin/options.routes >> registers no routes', t => {
  */
 
 test('plugin/options.ignore >> ignores a single route file', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
     ignore: 'foo/bar/*.js',
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo().filter(route => (
+  register(fixtures.server, pluginOptions, err => {
+    const filtered = getInfo(fixtures.server).filter(route => (
       route.description === 'foobar'
     ));
 
@@ -193,13 +191,13 @@ test('plugin/options.ignore >> ignores a single route file', t => {
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 test('plugin/options.ignore >> ignores multiple route files', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
     ignore: [
       'foo/bar/*.js',
@@ -207,15 +205,15 @@ test('plugin/options.ignore >> ignores multiple route files', t => {
     ],
   };
 
-  register(pluginOptions, err => {
-    const filtered = getInfo();
+  register(fixtures.server, pluginOptions, err => {
+    const filtered = getInfo(fixtures.server);
 
     t.notOk(err);
     t.equal(filtered.length, 1);
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 /**
@@ -223,34 +221,34 @@ test('plugin/options.ignore >> ignores multiple route files', t => {
  */
 
 test('plugin/options.log >> outputs the mapping', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
     log: true,
   };
 
-  register(pluginOptions, err => {
+  register(fixtures.server, pluginOptions, err => {
     t.notOk(err);
-    t.equal(infoSpy.callCount, 4);
+    t.equal(fixtures.infoSpy.callCount, 4);
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
 
 test('plugin/options.log >> does not output the mapping', t => {
-  setup();
+  const fixtures = setup();
 
-  pluginOptions = {
+  const pluginOptions = {
     routes: path.join(__dirname, 'routes'),
   };
 
-  register(pluginOptions, err => {
+  register(fixtures.server, pluginOptions, err => {
     t.notOk(err);
-    t.equal(infoSpy.callCount, 0);
+    t.equal(fixtures.infoSpy.callCount, 0);
     t.end();
   });
 
-  teardown();
+  teardown(fixtures);
 });
