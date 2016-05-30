@@ -28,7 +28,7 @@
   },
   "main": "./lib/index.js",
   "config": {
-    "tapeOptions": "-r babel-core/register test/**"
+    "tapeOptions": "-r babel-core/register test/**/*.spec.js"
   },
   "scripts": {
     "prebuild": "rm -rf lib",

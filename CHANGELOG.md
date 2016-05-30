@@ -2,6 +2,7 @@
 
 ### unreleased
 - **fix:** refactor setup/teardown to avoid shared state
+- **fix:** reorganize test specifications
 
 ### [v0.6.1] - 2016-05-30
 - **fix:** rename closure parameters

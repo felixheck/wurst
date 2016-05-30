@@ -163,8 +163,6 @@ Do not forget to add corresponding tests to keep up 100% test coverage.
 
 
 ## Next Steps
-- Reorganize test specifications
-
 
 ## License
 The MIT License
