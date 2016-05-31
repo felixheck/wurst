@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.6.2] - 2016-05-31
 - **fix:** refactor setup/teardown to avoid shared state
 - **fix:** reorganize test specifications
 - **upg:** joi (-> 8.4.0) and babel-core (-> 6.9.1)
+- **doc:** update CHANGELOG.md
 
 ### [v0.6.1] - 2016-05-30
 - **fix:** rename closure parameters
