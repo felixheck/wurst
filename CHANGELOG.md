@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **upg:** eslint (-> 2.11.1)
 
 ### [v0.6.2] - 2016-05-31
 - **fix:** refactor setup/teardown to avoid shared state
