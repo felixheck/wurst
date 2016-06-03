@@ -14,7 +14,7 @@
 ## Introduction
 *wurst* is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
 
-This plugin is implemented in ECMAScript 6. Therefore the development dependencies are based on `babel`. Additionally `eslint` and `mocha` are used to grant a high quality implementation.
+This plugin is implemented in ECMAScript 6. Therefore the development dependencies are based on `babel`. Additionally `eslint` and `tape` are used to grant a high quality implementation.
 
 ## Installation
 For installation use the [Node Package Manager](https://github.com/npm/npm):
