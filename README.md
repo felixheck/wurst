@@ -1,5 +1,8 @@
 ![wurst logo](https://raw.githubusercontent.com/felixheck/wurst/master/wurst.png)
 #### Directory based autoloader for hapi.js routes
+
+[![Travis](https://img.shields.io/travis/felixheck/wurst.svg?maxAge=2592000)]() [![node](https://img.shields.io/node/v/wurst.svg?maxAge=2592000)]() [![npm](https://img.shields.io/npm/dt/wurst.svg?maxAge=2592000)]()
+
 ---
 
 1. [Introduction](#introduction)

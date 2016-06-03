@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **doc:** add badges
 
 ### [v0.6.3] - 2016-06-03
 - **upg:** eslint (-> 2.11.1)
