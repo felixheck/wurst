@@ -1,10 +1,13 @@
 # master
 
 ### unreleased
+
+### [v0.6.3] - 2016-06-03
 - **upg:** eslint (-> 2.11.1)
 - **doc:** fix
 - **upg:** eslint-plugin-jsx-a11y  (-> 1.2.3)
 - **add:** travis support
+- **doc:** update CHANGELOG.md
 
 ### [v0.6.2] - 2016-05-31
 - **fix:** refactor setup/teardown to avoid shared state
