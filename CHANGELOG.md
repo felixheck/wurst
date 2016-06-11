@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.6.4] - 2016-06-11
 - **doc:** add badges
 - **doc:** fix badge hyperlinks
 - **upg:** joi (-> 8.4.1), babel-cli (-> 6.10.1) and es-lint (-> 2.12.0)
+- **doc:** update CHANGELOG.md
 
 ### [v0.6.3] - 2016-06-03
 - **upg:** eslint (-> 2.11.1)
