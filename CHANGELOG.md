@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **upg:** glob (-> 7.0.4), eslint-plugin-jsx-a11y (-> 1.5.3) and joi (-> 8.4.2)
 
 ### [v0.6.4] - 2016-06-11
 - **doc:** add badges
