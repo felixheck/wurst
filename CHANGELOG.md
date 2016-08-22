@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.6.6] - 2016-08-22
 - **upg:** several development dependencies
 - **upg:** several dev and prod dependencies
 - **doc:** update peer dependencies
+- **doc:** update versions
 
 ### [v0.6.5] - 2016-07-02
 - **upg:** glob (-> 7.0.4), eslint-plugin-jsx-a11y (-> 1.5.3) and joi (-> 8.4.2)
