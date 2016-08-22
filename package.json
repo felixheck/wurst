@@ -67,6 +67,6 @@
     "joi": "^9.0.4"
   },
   "peerDependencies": {
-    "hapi": "13.x.x"
+    "hapi": "14.x.x"
   }
 }
