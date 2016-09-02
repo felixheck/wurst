@@ -1,8 +1,11 @@
 # master
 
 ### unreleased
+
+### [v0.7.0] - 2016-09-02
 - **fix:** changed filePath.split from path.sep to '/'
 - **upg:** several dev, prod and peer dependencies
+- **doc:** update versions
 
 ### [v0.6.6] - 2016-08-22
 - **upg:** several development dependencies
