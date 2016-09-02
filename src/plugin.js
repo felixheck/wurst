@@ -85,7 +85,7 @@ const factory = {
    * @returns {Array.<?string>} List of directories
    */
   getPathTree(filePath) {
-    const splitPath = filePath.split(path.sep);
+    const splitPath = filePath.split('/');
     splitPath.pop();
 
     return splitPath;
