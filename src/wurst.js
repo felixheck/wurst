@@ -1,5 +1,4 @@
 const plugin = require('./plugin');
-const oloo = require('./oloo');
 
 /**
  * @namespace
@@ -9,15 +8,7 @@ const oloo = require('./oloo');
  * Host all related object factories
  */
 const Wurst = {
-  plugin,
-
-  init(server, options) {
-    return oloo(plugin, {
-      server,
-      options,
-      routeList: [],
-    });
-  },
+  create: plugin,
 };
 
 module.exports = Wurst;

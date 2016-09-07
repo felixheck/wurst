@@ -63,6 +63,7 @@
     "npm": "^3.8.8"
   },
   "dependencies": {
+    "babel-polyfill": "^6.13.0",
     "glob": "^7.0.6",
     "joi": "^9.0.4"
   },

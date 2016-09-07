@@ -1,6 +1,6 @@
 const sinon = require('sinon');
 const Hapi = require('hapi');
-const Plugin = require('../../src');
+const Plugin = require('../src/index');
 
 /**
  * Utils

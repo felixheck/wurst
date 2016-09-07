@@ -19,7 +19,7 @@ require('babel-polyfill');
  * @returns {*}
  */
 function pluginLoader(server, options, next) {
-  Wurst.init(server, options).load();
+  Wurst.create(server, options).init();
 
   return next();
 }
