@@ -14,7 +14,7 @@
 8. [License](#license)
 
 ## Introduction
-*wurst* is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
+**wurst** is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
 
 This plugin is implemented in ECMAScript 6. Therefore the development dependencies are based on `babel`. Additionally `eslint` and `tape` are used to grant a high quality implementation.
 
@@ -70,17 +70,17 @@ It is possible to register the plugin many times, but it is suggested to use `op
 
 #### Options
 
-**routes**: `string`<br/>
+- **routes**: `string`<br/>
 Optional. Default: `__dirname`<br/>
 The absolute path to the routes directory.
 
-**ignore**: `string | Array.<?string>`<br/>
-Optional<br/>
+- **ignore**: `string | Array.<?string>`<br/>
+Optional.<br/>
 The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
 
-**log**: `boolean`<br/>
+- **log**: `boolean`<br/>
 Optional. Default: `false`<br/>
-If `true`, the plugins logs the prefixed routes into console.<br/>
+If `true`, the plugin logs the prefixed routes into console.<br/>
 For example:
 
 ```

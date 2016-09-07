@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **doc:** fix flaws in README
 
 ### [v0.8.0] - 2016-09-07
 - **rmv:** oloo support and tests
