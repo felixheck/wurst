@@ -1,10 +1,13 @@
 # master
 
 ### unreleased
+
+### [v0.8.0] - 2016-09-07
 - **rmv:** oloo support and tests
 - **fix:** replace oloo with simple factory function
 - **fix:** reorganize tests structure
 - **fix:** refactor plugin and initialization
+- **doc:** update versions
 
 ### [v0.7.0] - 2016-09-02
 - **fix:** changed filePath.split from path.sep to '/'
