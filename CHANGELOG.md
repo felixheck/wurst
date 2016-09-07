@@ -1,9 +1,12 @@
 # master
 
 ### unreleased
+
+### [v0.8.1] - 2016-09-07
 - **doc:** fix flaws in README
 - **fix:** logging the plugins name
 - **upg:** eslint-config-airbnb-base (-> 7.0.0)
+- **doc:** update versions
 
 ### [v0.8.0] - 2016-09-07
 - **rmv:** oloo support and tests
