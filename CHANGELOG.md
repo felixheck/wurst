@@ -2,6 +2,7 @@
 
 ### unreleased
 - **doc:** fix flaws in README
+- **fix:** logging the plugins name
 
 ### [v0.8.0] - 2016-09-07
 - **rmv:** oloo support and tests

@@ -1,6 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const Joi = require('joi');
+const pkg = require('../package.json');
 
 /**
  * @type {Object}
@@ -114,7 +115,7 @@ function factory(server, options) {
      * Log the built list of prefixed routes into console
      */
     logRouteList() {
-      console.info(`\n${this.constructor.name} prefixed the following routes`);
+      console.info(`\n${pkg.name} prefixed the following routes`);
 
       this.routeList.forEach(route => {
         console.info(
