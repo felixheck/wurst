@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **upg:** several dev and prod dependencies
 
 ### [v0.8.1] - 2016-09-07
 - **doc:** fix flaws in README
