@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **fix:** hotfix
 
 ### [v0.9.0] - 2016-10-12
 - **upg:** several dev, prod and peer dependencies
