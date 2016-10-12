@@ -31,6 +31,12 @@ or clone the repository:
 $ git clone https://github.com/felixheck/wurst
 ```
 
+Alternatively use the [Yarn Package Manager](https://yarnpkg.com):
+```
+// production version with ES5 syntax
+$ yarn add wurst
+```
+
 ## Usage
 #### Import
 First you have to import the module:

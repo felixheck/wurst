@@ -2,6 +2,7 @@
 
 ### unreleased
 - **upg:** several dev, prod and peer dependencies
+- **add:** yarn support
 
 ### [v0.8.1] - 2016-09-07
 - **doc:** fix flaws in README
