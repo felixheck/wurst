@@ -104,7 +104,9 @@ function factory(server, options) {
       this.validateOptions();
       this.getFilePaths().forEach(this::this.registerRoutes);
 
-      this.options.log && this.logRouteList();
+      if (this.options.log) {
+        this.logRouteList();
+      }
     },
 
     /**
@@ -117,7 +119,7 @@ function factory(server, options) {
     logRouteList() {
       console.info(`\n${pkg.name} prefixed the following routes`);
 
-      this.routeList.forEach(route => {
+      this.routeList.forEach((route) => {
         console.info(
           '\t', `[${route.method}]`.padEnd(8), route.path
         );
@@ -145,7 +147,7 @@ function factory(server, options) {
       const pathTree = this.getPathTree(filePath);
 
       if (pathTree.length !== 0) {
-        routes.forEach(route => {
+        routes.forEach((route) => {
           this.validateRouteObject(route);
           prefixedPath = `/${pathTree.join('/')}${route.path}`.replace(/\/$/, '');
           this.extendRouteList(route.path, prefixedPath, route.method);

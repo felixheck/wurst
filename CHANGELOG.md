@@ -3,6 +3,8 @@
 ### unreleased
 - **upg:** several dev, prod and peer dependencies
 - **add:** yarn support
+- **fix:** linting errors
+- **rmv:** unneeded linting rules
 
 ### [v0.8.1] - 2016-09-07
 - **doc:** fix flaws in README
