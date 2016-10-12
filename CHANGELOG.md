@@ -1,10 +1,13 @@
 # master
 
 ### unreleased
+
+### [v0.9.0] - 2016-10-12
 - **upg:** several dev, prod and peer dependencies
 - **add:** yarn support
 - **fix:** linting errors
 - **rmv:** unneeded linting rules
+- **doc:** update versions
 
 ### [v0.8.1] - 2016-09-07
 - **doc:** fix flaws in README
