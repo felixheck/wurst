@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **add:** .editorconfig
 
 ### [v1.1.1] - 2017-02-10
 - **doc:** bump version
