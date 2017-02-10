@@ -26,48 +26,32 @@
     "email": "hi@whoTheHeck.com",
     "url": "https://github.com/felixheck/wurst/issues"
   },
-  "main": "./lib/index.js",
-  "config": {
-    "tapeOptions": "-r babel-core/register test/**/*.spec.js"
-  },
+  "main": "./src/index.js",
   "scripts": {
-    "prebuild": "rm -rf lib",
-    "build": "babel -d lib src",
     "precoverage": "rm -rf coverage",
-    "coverage": "NODE_ENV=test istanbul cover tape -- $npm_package_config_tapeOptions | tap-spec",
-    "lint": "eslint --ext .js src",
-    "prepublish": "npm run build",
+    "coverage": "NODE_ENV=test istanbul cover tape -- test/**/*.spec.js | tap-spec",
+    "lint": "standard",
     "start": "watch 'npm test' src test --wait 5 --interval 1",
-    "test": "NODE_ENV=test tape $npm_package_config_tapeOptions | tap-spec"
+    "test": "NODE_ENV=test tape test/**/*.spec.js | tap-spec"
   },
   "devDependencies": {
-    "babel-cli": "^6.16.0",
-    "babel-core": "^6.17.0",
-    "babel-eslint": "^7.0.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-preset-es2015": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "eslint": "3.7.1",
-    "eslint-config-airbnb-base": "^8.0.0",
-    "eslint-plugin-import": "^2.0.1",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
     "hapi": "^15.1.1",
     "istanbul": "^1.0.0-alpha.2",
     "sinon": "^1.17.6",
+    "standard": "^8.6.0",
     "tap-spec": "^4.1.1",
     "tape": "^4.6.2",
     "watch": "^1.0.1"
   },
-  "engines": {
-    "node": "^6.0.0",
-    "npm": "^3.8.8"
-  },
   "dependencies": {
-    "babel-polyfill": "^6.16.0",
     "glob": "^7.1.1",
     "joi": "^9.1.0"
   },
   "peerDependencies": {
     "hapi": ">= 13.x.x"
+  },
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.8.8"
   }
 }

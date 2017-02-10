@@ -1,4 +1,4 @@
-const plugin = require('./plugin');
+const plugin = require('./plugin')
 
 /**
  * @namespace
@@ -8,7 +8,7 @@ const plugin = require('./plugin');
  * Host all related object factories
  */
 const Wurst = {
-  create: plugin,
-};
+  create: plugin
+}
 
-module.exports = Wurst;
+module.exports = Wurst

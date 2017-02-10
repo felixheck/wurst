@@ -3,10 +3,10 @@ const rootRoute = {
   path: '/',
   config: {
     description: 'root',
-    handler(request, reply) {
-      reply('root');
-    },
-  },
-};
+    handler (request, reply) {
+      reply('root')
+    }
+  }
+}
 
-module.exports = rootRoute;
+module.exports = rootRoute

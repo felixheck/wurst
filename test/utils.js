@@ -1,35 +1,35 @@
-const sinon = require('sinon');
-const Hapi = require('hapi');
-const Plugin = require('../src/index');
+const sinon = require('sinon')
+const Hapi = require('hapi')
+const Plugin = require('../src/index')
 
 /**
  * Utils
  */
 
 const getInfo = server => {
-  const routes = [];
+  const routes = []
 
   server.table().forEach(connection => {
     connection.table.forEach(endpoint => {
       routes.push({
         path: endpoint.path,
         method: endpoint.method,
-        description: endpoint.settings.description,
-      });
-    });
-  });
+        description: endpoint.settings.description
+      })
+    })
+  })
 
-  return routes;
-};
+  return routes
+}
 
 const register = (server, options, next) => {
   server.register({
-      register: Plugin,
-      options,
-    },
+    register: Plugin,
+    options
+  },
     err => next(err)
-  );
-};
+  )
+}
 
 /**
  * Hooks
@@ -38,21 +38,21 @@ const register = (server, options, next) => {
 const setup = () => {
   const fixtures = {
     infoSpy: sinon.spy(console, 'info'),
-    server: new Hapi.Server(),
-  };
+    server: new Hapi.Server()
+  }
 
-  fixtures.server.connection();
+  fixtures.server.connection()
 
-  return fixtures;
+  return fixtures
 }
 
 const teardown = fixtures => {
-  fixtures.infoSpy.restore();
+  fixtures.infoSpy.restore()
 }
 
 module.exports = {
   getInfo,
   register,
   setup,
-  teardown,
-};
+  teardown
+}

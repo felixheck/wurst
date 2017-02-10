@@ -1,13 +1,13 @@
 /*!
  * @author Felix Heck <hi@whoTheHeck.de>
- * @version 0.9.1
- * @copyright Felix Heck 2016
+ * @version 1.0.0
+ * @copyright Felix Heck 2016-2017
  * @license MIT
  */
 
-const pkg = require('../package.json');
-const Wurst = require('./wurst');
-require('babel-polyfill');
+const pkg = require('../package.json')
+const Wurst = require('./wurst')
+require('babel-polyfill')
 
 /**
  * @function
@@ -18,10 +18,10 @@ require('babel-polyfill');
  * @param {Function} next The callback to return control
  * @returns {*}
  */
-function pluginLoader(server, options, next) {
-  Wurst.create(server, options).init();
+function pluginLoader (server, options, next) {
+  Wurst.create(server, options).init()
 
-  return next();
+  return next()
 }
 
 /**
@@ -30,7 +30,7 @@ function pluginLoader(server, options, next) {
  */
 pluginLoader.attributes = {
   multiple: true,
-  pkg,
-};
+  pkg
+}
 
-module.exports = pluginLoader;
+module.exports = pluginLoader

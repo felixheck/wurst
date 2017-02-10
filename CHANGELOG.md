@@ -2,6 +2,17 @@
 
 ### unreleased
 
+### [v1.0.0] - 2017-02-10
+- **fix:** dependencies
+- **rmv:** npmignore
+- **doc:** fix engines
+- **rmv:** eslint and babel
+- **add:** standard
+- **fix:** es6 compatibility
+- **fix:** linting errors
+- **doc:** adjust changes
+- **doc:** bump version
+
 ### [v0.9.1] - 2016-10-12
 - **fix:** hotfix
 - **doc:** update versions

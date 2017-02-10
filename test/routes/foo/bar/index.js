@@ -4,21 +4,21 @@ const barRoutes = [
     path: '/',
     config: {
       description: 'foobar',
-      handler(request, reply) {
-        reply('bar');
-      },
-    },
+      handler (request, reply) {
+        reply('bar')
+      }
+    }
   },
   {
     method: 'GET',
     path: '/foobar',
     config: {
       description: 'foobar',
-      handler(request, reply) {
-        reply('bar');
-      },
-    },
-  },
-];
+      handler (request, reply) {
+        reply('bar')
+      }
+    }
+  }
+]
 
-module.exports = barRoutes;
+module.exports = barRoutes

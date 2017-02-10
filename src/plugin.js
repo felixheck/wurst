@@ -1,7 +1,7 @@
-const path = require('path');
-const glob = require('glob');
-const Joi = require('joi');
-const pkg = require('../package.json');
+const path = require('path')
+const glob = require('glob')
+const Joi = require('joi')
+const pkg = require('../package.json')
 
 /**
  * @type {Object}
@@ -12,7 +12,7 @@ const pkg = require('../package.json');
  * @description
  * Autoload and prefix routes
  */
-function factory(server, options) {
+function factory (server, options) {
   return {
     server,
     options,
@@ -30,14 +30,14 @@ function factory(server, options) {
         routes: Joi.string().default(__dirname),
         ignore: [
           Joi.string(),
-          Joi.array().items(Joi.string()),
+          Joi.array().items(Joi.string())
         ],
-        log: Joi.boolean().default(false),
+        log: Joi.boolean().default(false)
       }),
       routeObject: Joi.object({
         path: Joi.string().required(),
-        method: Joi.string().required(),
-      }).unknown(true),
+        method: Joi.string().required()
+      }).unknown(true)
     },
 
     /**
@@ -51,12 +51,12 @@ function factory(server, options) {
      * @param {string} modified The modified route path
      * @param {string} method The concerning HTTP method
      */
-    extendRouteList(origin, modified, method) {
+    extendRouteList (origin, modified, method) {
       this.routeList.push({
         path: modified,
         method,
-        origin,
-      });
+        origin
+      })
     },
 
     /**
@@ -68,12 +68,12 @@ function factory(server, options) {
      *
      * @returns {Array.<?string>} List of file paths
      */
-    getFilePaths() {
+    getFilePaths () {
       return glob.sync('**/*.js', {
         nodir: true,
         cwd: this.options.routes,
-        ignore: this.options.ignore,
-      });
+        ignore: this.options.ignore
+      })
     },
 
     /**
@@ -86,11 +86,11 @@ function factory(server, options) {
      * @param {string} filePath The file path to be split
      * @returns {Array.<?string>} List of directories
      */
-    getPathTree(filePath) {
-      const splitPath = filePath.split('/');
-      splitPath.pop();
+    getPathTree (filePath) {
+      const splitPath = filePath.split('/')
+      splitPath.pop()
 
-      return splitPath;
+      return splitPath
     },
 
     /**
@@ -100,12 +100,12 @@ function factory(server, options) {
      * @description
      * Autoload and prefix routes
      */
-    init() {
-      this.validateOptions();
-      this.getFilePaths().forEach(this::this.registerRoutes);
+    init () {
+      this.validateOptions()
+      this.getFilePaths().forEach(this.registerRoutes.bind(this))
 
       if (this.options.log) {
-        this.logRouteList();
+        this.logRouteList()
       }
     },
 
@@ -116,14 +116,14 @@ function factory(server, options) {
      * @description
      * Log the built list of prefixed routes into console
      */
-    logRouteList() {
-      console.info(`\n${pkg.name} prefixed the following routes`);
+    logRouteList () {
+      console.info(`\n${pkg.name} prefixed the following routes`)
 
       this.routeList.forEach((route) => {
         console.info(
           '\t', `[${route.method}]`.padEnd(8), route.path
-        );
-      });
+        )
+      })
     },
 
     /**
@@ -137,25 +137,25 @@ function factory(server, options) {
      * @param {string} filePath The related file path
      * @returns {Array.<?Object>} The list of routes with prefixed paths
      */
-    prefixRoutes(routes, filePath) {
-      let prefixedPath;
+    prefixRoutes (routes, filePath) {
+      let prefixedPath
 
       if (!Array.isArray(routes)) {
-        routes = Array.of(routes);
+        routes = Array.of(routes)
       }
 
-      const pathTree = this.getPathTree(filePath);
+      const pathTree = this.getPathTree(filePath)
 
       if (pathTree.length !== 0) {
         routes.forEach((route) => {
-          this.validateRouteObject(route);
-          prefixedPath = `/${pathTree.join('/')}${route.path}`.replace(/\/$/, '');
-          this.extendRouteList(route.path, prefixedPath, route.method);
-          route.path = prefixedPath;
-        });
+          this.validateRouteObject(route)
+          prefixedPath = `/${pathTree.join('/')}${route.path}`.replace(/\/$/, '')
+          this.extendRouteList(route.path, prefixedPath, route.method)
+          route.path = prefixedPath
+        })
       }
 
-      return routes;
+      return routes
     },
 
     /**
@@ -167,13 +167,13 @@ function factory(server, options) {
      *
      * @param {string} filePath The file path to be loaded and registered
      */
-    registerRoutes(filePath) {
-      const modulePath = path.join(this.options.routes, filePath);
-      const routes = require(modulePath);
-      const prefixedRoutes = this.prefixRoutes(routes, filePath);
+    registerRoutes (filePath) {
+      const modulePath = path.join(this.options.routes, filePath)
+      const routes = require(modulePath)
+      const prefixedRoutes = this.prefixRoutes(routes, filePath)
 
-      this.server.route(prefixedRoutes);
-      delete require.cache[modulePath];
+      this.server.route(prefixedRoutes)
+      delete require.cache[modulePath]
     },
 
     /**
@@ -183,8 +183,8 @@ function factory(server, options) {
      * @description
      * Validate plugin options based on defined schema
      */
-    validateOptions() {
-      this.options = Joi.attempt(this.options, this.schemata.options, 'Invalid options');
+    validateOptions () {
+      this.options = Joi.attempt(this.options, this.schemata.options, 'Invalid options')
     },
 
     /**
@@ -196,10 +196,10 @@ function factory(server, options) {
      *
      * @param {Object} routeObject The route object to be validated
      */
-    validateRouteObject(routeObject) {
-      Joi.assert(routeObject, this.schemata.routeObject, 'Invalid route object');
-    },
-  };
+    validateRouteObject (routeObject) {
+      Joi.assert(routeObject, this.schemata.routeObject, 'Invalid route object')
+    }
+  }
 }
 
-module.exports = factory;
+module.exports = factory

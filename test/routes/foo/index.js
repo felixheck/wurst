@@ -3,10 +3,10 @@ const fooRoute = {
   path: '/foo',
   config: {
     description: 'foo',
-    handler(request, reply) {
-      reply('foo');
-    },
-  },
-};
+    handler (request, reply) {
+      reply('foo')
+    }
+  }
+}
 
-module.exports = fooRoute;
+module.exports = fooRoute
