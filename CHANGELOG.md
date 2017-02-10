@@ -2,7 +2,10 @@
 
 ### unreleased
 
-### [v1.0.0] - 2017-02-10
+### [v1.1.1] - 2017-02-10
+- **doc:** bump version
+
+### [v1.1.0] - 2017-02-10
 - **fix:** dependencies
 - **rmv:** npmignore
 - **doc:** fix engines
