@@ -3,6 +3,8 @@
 ### unreleased
 - **add:** .editorconfig
 - **doc:** fix badges
+- **fix:** travis config
+- **doc:** fix flaws
 
 ### [v1.1.1] - 2017-02-10
 - **doc:** bump version
