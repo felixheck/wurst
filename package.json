@@ -45,7 +45,8 @@
   },
   "dependencies": {
     "glob": "^7.1.1",
-    "joi": "^9.1.0"
+    "joi": "^9.1.0",
+    "lodash.padend": "^4.6.1"
   },
   "peerDependencies": {
     "hapi": ">= 13.x.x"

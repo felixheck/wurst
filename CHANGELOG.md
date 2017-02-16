@@ -2,6 +2,10 @@
 
 ### unreleased
 
+### [v1.3.1] - 2017-02-16
+- **fix:** flaws
+- **doc:** bump version
+
 ### [v1.3.0] - 2017-02-16
 - **doc:** bump version
 
