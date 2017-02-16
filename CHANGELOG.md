@@ -2,6 +2,10 @@
 
 ### unreleased
 
+### [v1.2.0] - 2017-02-16
+- **fix:** flaws
+- **doc:** bump version
+
 ### [v1.1.2] - 2017-02-16
 - **add:** .editorconfig
 - **doc:** fix badges

@@ -1,6 +1,7 @@
 const path = require('path')
 const glob = require('glob')
 const Joi = require('joi')
+const padend = require('lodash.padend')
 const pkg = require('../package.json')
 
 /**
@@ -121,7 +122,7 @@ function factory (server, options) {
 
       this.routeList.forEach((route) => {
         console.info(
-          '\t', `[${route.method}]`.padEnd(8), route.path
+          '\t', padend(`[${route.method}]`, 8), route.path
         )
       })
     },
