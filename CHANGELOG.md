@@ -1,10 +1,14 @@
 # master
 
 ### unreleased
+
+### [v1.1.2] - 2017-02-16
 - **add:** .editorconfig
 - **doc:** fix badges
 - **fix:** travis config
 - **doc:** fix flaws
+- **rmv:** babel-polyfill
+- **doc:** bump version
 
 ### [v1.1.1] - 2017-02-10
 - **doc:** bump version
