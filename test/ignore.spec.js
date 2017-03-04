@@ -10,7 +10,7 @@ test('plugin/options.ignore >> ignores a single route file', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'routes'),
     ignore: 'foo/bar/*.js'
   }
 
@@ -31,7 +31,7 @@ test('plugin/options.ignore >> ignores multiple route files', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'routes'),
     ignore: [
       'foo/bar/*.js',
       'foo/*.js'

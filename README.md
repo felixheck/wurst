@@ -58,8 +58,8 @@ Finally register the plugin and set the correct options:
 server.register({
   register: wurst,
   options: {
-    routes: path.join(__dirname, 'routes'),
     ignore: 'foo/**/*.js',
+    cwd: path.join(__dirname, 'routes'),
     log: true
   },
 }, function(err) {
@@ -69,17 +69,20 @@ server.register({
 });
 ```
 
-It is possible to register the plugin many times, but it is suggested to use `options.routes` which are not nested in each other.
+It is possible to register the plugin many times, but it is suggested to use `options.cwd`/`options.routes` which are not nested in each other.
 
 #### Options
-
 - **routes**: `string`<br/>
-Optional. Default: `__dirname`<br/>
-The absolute path to the routes directory.
+Optional. Default: `**/*.js`<br/>
+The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern to select route files.
 
 - **ignore**: `string | Array.<?string>`<br/>
 Optional.<br/>
 The [glob](https://github.com/isaacs/node-glob#glob-primer) pattern or an array of patterns to exclude route files.
+
+- **cwd**: `string`<br/>
+Optional. Default: `process.cwd()`<br/>
+The absolute path to the current working directory in which to search. Subdirectories will be prefixes.
 
 - **log**: `boolean`<br/>
 Optional. Default: `false`<br/>

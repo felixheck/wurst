@@ -2,6 +2,13 @@
 
 ### unreleased
 
+### [v2.0.0] - 2017-03-04
+- **fix:** rename `options.routes` to `options.cwd`
+- **add:** possibility to select files actively (`options.routes`)
+- **doc:** adjust docs
+- **fix:** adjust tests
+- **doc:** bump version
+
 ### [v1.3.1] - 2017-02-16
 - **fix:** flaws
 - **doc:** bump version

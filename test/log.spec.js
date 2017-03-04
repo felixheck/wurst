@@ -10,7 +10,7 @@ test('plugin/options.log >> outputs the mapping', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'routes'),
     log: true
   }
 
@@ -27,7 +27,7 @@ test('plugin/options.log >> does not output the mapping', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes')
+    cwd: path.join(__dirname, 'routes')
   }
 
   register(fixtures.server, pluginOptions, err => {

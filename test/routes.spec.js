@@ -10,7 +10,7 @@ test('plugin/options.routes >> registers a directory with nested directories', t
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes')
+    cwd: path.join(__dirname, 'routes')
   }
 
   register(fixtures.server, pluginOptions, err => {
@@ -31,7 +31,7 @@ test('plugin/options.routes >> registers just a nested directory', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes/foo/bar')
+    cwd: path.join(__dirname, 'routes/foo/bar')
   }
 
   register(fixtures.server, pluginOptions, err => {
@@ -51,7 +51,7 @@ test('plugin/options.routes >> registers no routes', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'route')
+    cwd: path.join(__dirname, 'route')
   }
 
   register(fixtures.server, pluginOptions, err => {

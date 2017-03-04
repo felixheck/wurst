@@ -10,7 +10,7 @@ test('plugin/registration >> contains an summary of registered routes', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes')
+    cwd: path.join(__dirname, 'routes')
   }
 
   register(fixtures.server, pluginOptions, err => {
@@ -30,12 +30,12 @@ test('plugin/registration >> registers the plugin twice', t => {
   const fixtures = setup()
 
   const pluginOptions = {
-    routes: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'routes'),
     ignore: 'foo/**/*.js'
   }
 
   const pluginOptions2 = {
-    routes: path.join(__dirname, 'routes/foo')
+    cwd: path.join(__dirname, 'routes/foo')
   }
 
   register(fixtures.server, pluginOptions, () => {})
