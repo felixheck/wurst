@@ -1,6 +1,7 @@
 # master
 
 ### unreleased
+- **rmv:** duplicated route object validation
 
 ### [v2.0.0] - 2017-03-04
 - **fix:** rename `options.routes` to `options.cwd`

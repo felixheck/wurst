@@ -35,11 +35,7 @@ function factory (server, options) {
         ],
         cwd: Joi.string().default(process.cwd()),
         log: Joi.boolean().default(false)
-      }),
-      routeObject: Joi.object({
-        path: Joi.string().required(),
-        method: Joi.string().required()
-      }).unknown(true)
+      })
     },
 
     /**
@@ -141,7 +137,6 @@ function factory (server, options) {
 
       if (pathTree.length !== 0) {
         routes.forEach((route) => {
-          Joi.assert(route, this.schemata.routeObject, 'Invalid route object')
           route.path = `/${pathTree.join('/')}${route.path}`.replace(/\/$/, '')
           this.extendRouteList(route)
         })
