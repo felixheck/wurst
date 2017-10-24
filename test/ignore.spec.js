@@ -1,50 +1,40 @@
-const test = require('tape').test
+const test = require('ava')
 const path = require('path')
-const { register, getInfo, setup, teardown } = require('./utils')
+const helpers = require('./_helpers')
 
-/**
- * Options.ignore specification
- */
+test.beforeEach((t) => {
+  t.context.fxt = helpers.setup()
+})
 
-test('plugin/options.ignore >> ignores a single route file', t => {
-  const fixtures = setup()
+test.afterEach.always((t) => {
+  helpers.teardown(t.context.fxt)
+})
 
+test('plugin/options.ignore >> ignores a single route file', async (t) => {
   const pluginOptions = {
-    cwd: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'fixtures'),
     ignore: 'foo/bar/*.js'
   }
 
-  register(fixtures.server, pluginOptions, err => {
-    const filtered = getInfo(fixtures.server).filter(route => (
-      route.description === 'foobar'
-    ))
+  await helpers.register(t.context.fxt.server, pluginOptions)
+  const result = helpers.getInfo(t.context.fxt.server).filter(route => (
+    route.description === 'foobar'
+  ))
 
-    t.notOk(err)
-    t.equal(filtered.length, 0)
-    t.end()
-  })
-
-  teardown(fixtures)
+  t.is(result.length, 0)
 })
 
-test('plugin/options.ignore >> ignores multiple route files', t => {
-  const fixtures = setup()
-
+test('plugin/options.ignore >> ignores multiple route files', async (t) => {
   const pluginOptions = {
-    cwd: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'fixtures'),
     ignore: [
       'foo/bar/*.js',
       'foo/*.js'
     ]
   }
 
-  register(fixtures.server, pluginOptions, err => {
-    const filtered = getInfo(fixtures.server)
+  await helpers.register(t.context.fxt.server, pluginOptions)
+  const result = helpers.getInfo(t.context.fxt.server)
 
-    t.notOk(err)
-    t.equal(filtered.length, 1)
-    t.end()
-  })
-
-  teardown(fixtures)
+  t.is(result.length, 1)
 })

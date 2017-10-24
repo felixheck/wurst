@@ -15,8 +15,8 @@
 ## Introduction
 **wurst** is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
 
-This plugin is implemented in ECMAScript 6 without any transpilers like `babel`.<br>
-Additionally `standard` and `tape` are used to grant a high quality implementation.
+The modules `standard` and `tape` are used to grant a high quality implementation.<br/>
+This major release supports just [hapi.js](https://github.com/hapijs/hapi) `>=v17.0.0` and node `>=v8.0.0` — to support older versions please use `v2.0.1`.
 
 ## Installation
 For installation use the [Node Package Manager](https://github.com/npm/npm):
@@ -29,11 +29,6 @@ or clone the repository:
 $ git clone https://github.com/felixheck/wurst
 ```
 
-Alternatively use the [Yarn Package Manager](https://yarnpkg.com):
-```
-$ yarn add wurst
-```
-
 ## Usage
 #### Import
 First you have to import the module:
@@ -44,9 +39,8 @@ const wurst = require('wurst');
 #### Create hapi server
 Afterwards create your hapi server and the corresponding connection if not already done:
 ``` js
-const server = new Hapi.Server();
-
-server.connection({
+const hapi = require('hapi');
+const server = hapi.server({
   port: 8888,
   host: 'localhost',
 });
@@ -55,18 +49,16 @@ server.connection({
 #### Registration
 Finally register the plugin and set the correct options:
 ``` js
-server.register({
-  register: wurst,
-  options: {
-    ignore: 'foo/**/*.js',
-    cwd: path.join(__dirname, 'routes'),
-    log: true
-  },
-}, function(err) {
-  if (err) {
-    throw err;
-  }
-});
+(async () => {
+  await server.register({
+    plugin: wurst,
+    options: {
+      ignore: 'foo/**/*.js',
+      cwd: path.join(__dirname, 'routes'),
+      log: true
+    },
+  })
+})();
 ```
 
 It is possible to register the plugin many times, but it is suggested to use `options.cwd`/`options.routes` which are not nested in each other.
@@ -114,15 +106,15 @@ const routes = [
   {
     method: 'GET',
     path: '/',
-    handler(request, reply) {
-        reply('foo');
+    handler() {
+      return 'foo';
     }
   },
   {
     method: 'GET',
     path: '/42',
-    handler(request, reply) {
-        reply('42');
+    handler() {
+      return '42';
     }
   }
 ];

@@ -1,8 +1,7 @@
 const path = require('path')
-const glob = require('glob')
-const Joi = require('joi')
-const padend = require('lodash.padend')
-const pkg = require('../package.json')
+const glob = require('glob-promise')
+const joi = require('joi')
+const pkg = require('./package.json')
 
 /**
  * @type {Object}
@@ -27,14 +26,14 @@ function factory (server, options) {
      * Store joi schemata
      */
     schemata: {
-      options: Joi.object({
-        routes: Joi.string().default('**/*.js'),
+      options: joi.object({
+        routes: joi.string().default('**/*.js'),
         ignore: [
-          Joi.string(),
-          Joi.array().items(Joi.string())
+          joi.string(),
+          joi.array().items(joi.string())
         ],
-        cwd: Joi.string().default(process.cwd()),
-        log: Joi.boolean().default(false)
+        cwd: joi.string().default(process.cwd()),
+        log: joi.boolean().default(false)
       })
     },
 
@@ -45,9 +44,11 @@ function factory (server, options) {
      * @description
      * Autoload and prefix routes
      */
-    init () {
-      this.options = Joi.attempt(this.options, this.schemata.options, 'Invalid options')
-      this.getFilePaths().forEach(this.registerRoutes.bind(this))
+    async init () {
+      this.options = joi.attempt(this.options, this.schemata.options, 'Invalid options')
+      const filePaths= await this.getFilePaths()
+
+      filePaths.forEach(this.registerRoutes.bind(this))
 
       if (this.options.log) {
         this.logRouteList()
@@ -79,7 +80,7 @@ function factory (server, options) {
       console.info(`\n${pkg.name} prefixed the following routes`)
 
       this.routeList.forEach((route) => {
-        console.info('\t', padend(`[${route.method}]`, 8), route.path)
+        console.info('  ', `[${route.method}]`.padEnd(8), route.path)
       })
     },
 
@@ -93,7 +94,7 @@ function factory (server, options) {
      * @returns {Array.<?string>} List of file paths
      */
     getFilePaths () {
-      return glob.sync(this.options.routes, {
+      return glob(this.options.routes, {
         nodir: true,
         cwd: this.options.cwd,
         ignore: this.options.ignore
@@ -163,4 +164,7 @@ function factory (server, options) {
   }
 }
 
-module.exports = factory
+module.exports = {
+  register: (...rest) => factory(...rest).init(),
+  pkg
+}

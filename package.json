@@ -15,8 +15,8 @@
   "license": "MIT",
   "author": {
     "name": "Felix Heck",
-    "email": "hi@whoTheHeck.de",
-    "url": "http://whoTheHeck.de"
+    "email": "hi@whotheheck.de",
+    "url": "https://whotheheck.de"
   },
   "repository": {
     "type": "git",
@@ -26,33 +26,30 @@
     "email": "hi@whoTheHeck.com",
     "url": "https://github.com/felixheck/wurst/issues"
   },
-  "main": "./src/index.js",
+  "main": "./index.js",
   "scripts": {
-    "precoverage": "rm -rf coverage",
-    "coverage": "NODE_ENV=test istanbul cover tape -- test/**/*.spec.js | tap-spec",
+    "start": "npm test -- -w",
     "lint": "standard",
-    "start": "watch 'npm test' src test --wait 5 --interval 1",
-    "test": "NODE_ENV=test tape test/**/*.spec.js | tap-spec"
+    "test": "nyc --check-coverage --lines 60 ava -s --timeout=1m",
+    "coverage": "nyc report --reporter=lcov"
   },
   "devDependencies": {
-    "hapi": "^16.4.3",
-    "istanbul": "^1.0.0-alpha.2",
-    "sinon": "^2.3.8",
-    "standard": "^10.0.2",
-    "tap-spec": "^4.1.1",
-    "tape": "^4.7.0",
-    "watch": "^1.0.2"
+    "ava": "^0.22.0",
+    "hapi": "^17.0.0-rc8",
+    "nyc": "^11.2.1",
+    "sinon": "^4.0.1",
+    "standard": "^10.0.3"
   },
   "dependencies": {
     "glob": "^7.1.2",
-    "joi": "^10.6.0",
-    "lodash.padend": "^4.6.1"
+    "glob-promise": "^3.2.0",
+    "joi": "^13.0.1"
   },
   "peerDependencies": {
-    "hapi": ">= 13.x.x"
+    "hapi": ">= 17.x.x"
   },
   "engines": {
-    "node": ">=6.0.0",
-    "npm": ">=3.8.8"
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
   }
 }
