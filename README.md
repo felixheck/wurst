@@ -61,8 +61,6 @@ Finally register the plugin and set the correct options:
 })();
 ```
 
-It is possible to register the plugin many times, but it is suggested to use `options.cwd`/`options.routes` which are not nested in each other.
-
 #### Options
 - **routes**: `string`<br/>
 Optional. Default: `**/*.js`<br/>
