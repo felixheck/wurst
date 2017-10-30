@@ -1,4 +1,4 @@
-![wurst logo](https://raw.githubusercontent.com/felixheck/wurst/master/wurst.png)
+![wurst logo](https://raw.githubusercontent.com/felixheck/wurst/master/assets/wurst.png)
 #### Directory based autoloader for hapi.js routes
 
 [![Travis](https://img.shields.io/travis/felixheck/wurst.svg)](https://travis-ci.org/felixheck/wurst/builds/) ![node](https://img.shields.io/node/v/wurst.svg) ![npm](https://img.shields.io/npm/dt/wurst.svg) [![standard](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](http://standardjs.com/) ![npm](https://img.shields.io/npm/l/wurst.svg)
@@ -10,7 +10,6 @@
 4. [Example](#example)
 5. [Testing](#testing)
 6. [Contribution](#contribution)
-7. [License](#license)
 
 ## Introduction
 **wurst** is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
@@ -158,26 +157,3 @@ $ npm run coverage
 Fork this repository and push in your ideas.
 
 Do not forget to add corresponding tests to keep up 100% test coverage.
-
-## License
-The MIT License
-
-Copyright (c) 2016-2017 Felix Heck
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
