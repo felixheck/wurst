@@ -3,11 +3,11 @@ const path = require('path')
 const helpers = require('./_helpers')
 
 test.beforeEach((t) => {
-  t.context.fxt = helpers.setup()
+  t.context = helpers.setup()
 })
 
 test.afterEach.always((t) => {
-  helpers.teardown(t.context.fxt)
+  helpers.teardown(t.context)
 })
 
 test('output the mapping', async (t) => {
@@ -16,8 +16,8 @@ test('output the mapping', async (t) => {
     log: true
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  t.is(t.context.fxt.infoSpy.callCount, 4)
+  await helpers.register(t.context.server, pluginOptions)
+  t.is(t.context.infoSpy.callCount, 4)
 })
 
 test('do not output the mapping', async (t) => {
@@ -25,6 +25,6 @@ test('do not output the mapping', async (t) => {
     cwd: path.join(__dirname, 'fixtures')
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  t.is(t.context.fxt.infoSpy.callCount, 0)
+  await helpers.register(t.context.server, pluginOptions)
+  t.is(t.context.infoSpy.callCount, 0)
 })

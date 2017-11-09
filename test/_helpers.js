@@ -3,7 +3,7 @@ const hapi = require('hapi')
 const plugin = require('../index')
 
 function getInfo (server) {
-  return server.table().reduce(( result, { path, method, settings }) => {
+  return server.table().reduce((result, { path, method, settings }) => {
     result.push({ path, method, description: settings.description })
     return result
   }, [])

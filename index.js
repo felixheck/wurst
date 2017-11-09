@@ -19,7 +19,7 @@ const internals = {
  * @description
  * Store joi schemata
  */
-const schemata=  {
+const schemata = {
   options: joi.object({
     routes: joi.string().default('**/*.js'),
     ignore: [
@@ -42,7 +42,7 @@ async function init (server, options) {
   internals.server = server
   internals.options = joi.attempt(options, schemata.options, 'Invalid options')
 
-  const filePaths= await getFilePaths()
+  const filePaths = await getFilePaths()
 
   filePaths.forEach(registerRoutes)
 

@@ -3,11 +3,11 @@ const path = require('path')
 const helpers = require('./_helpers')
 
 test.beforeEach((t) => {
-  t.context.fxt = helpers.setup()
+  t.context = helpers.setup()
 })
 
 test.afterEach.always((t) => {
-  helpers.teardown(t.context.fxt)
+  helpers.teardown(t.context)
 })
 
 test('plugin/options.ignore >> ignores a single route file', async (t) => {
@@ -16,8 +16,8 @@ test('plugin/options.ignore >> ignores a single route file', async (t) => {
     ignore: 'foo/bar/*.js'
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  const result = helpers.getInfo(t.context.fxt.server).filter(route => (
+  await helpers.register(t.context.server, pluginOptions)
+  const result = helpers.getInfo(t.context.server).filter(route => (
     route.description === 'foobar'
   ))
 
@@ -33,8 +33,8 @@ test('plugin/options.ignore >> ignores multiple route files', async (t) => {
     ]
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  const result = helpers.getInfo(t.context.fxt.server)
+  await helpers.register(t.context.server, pluginOptions)
+  const result = helpers.getInfo(t.context.server)
 
   t.is(result.length, 1)
 })

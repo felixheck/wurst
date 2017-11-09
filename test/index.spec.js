@@ -3,11 +3,11 @@ const path = require('path')
 const helpers = require('./_helpers')
 
 test.beforeEach((t) => {
-  t.context.fxt = helpers.setup()
+  t.context = helpers.setup()
 })
 
 test.afterEach.always((t) => {
-  helpers.teardown(t.context.fxt)
+  helpers.teardown(t.context)
 })
 
 test('server route table contain all necessary properties', async (t) => {
@@ -15,9 +15,9 @@ test('server route table contain all necessary properties', async (t) => {
     cwd: path.join(__dirname, 'fixtures')
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
+  await helpers.register(t.context.server, pluginOptions)
 
-  const result = helpers.getInfo(t.context.fxt.server).every((route) => (
+  const result = helpers.getInfo(t.context.server).every((route) => (
     route && route.path && route.method && route.description
   ))
 
@@ -29,8 +29,8 @@ test('register a directory with nested directories', async (t) => {
     cwd: path.join(__dirname, 'fixtures')
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  const result = helpers.getInfo(t.context.fxt.server)
+  await helpers.register(t.context.server, pluginOptions)
+  const result = helpers.getInfo(t.context.server)
 
   t.is(result.length, 4)
   t.truthy(result.some(route => route.path === '/'))
@@ -43,8 +43,8 @@ test('register just a single nested directory', async (t) => {
     cwd: path.join(__dirname, 'fixtures/foo/bar')
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  const result = helpers.getInfo(t.context.fxt.server)
+  await helpers.register(t.context.server, pluginOptions)
+  const result = helpers.getInfo(t.context.server)
 
   t.is(result.length, 2)
   t.truthy(result.some(route => route.path === '/'))
@@ -56,9 +56,8 @@ test('register no routes', async (t) => {
     cwd: path.join(__dirname, 'fixture')
   }
 
-  await helpers.register(t.context.fxt.server, pluginOptions)
-  const result = helpers.getInfo(t.context.fxt.server)
+  await helpers.register(t.context.server, pluginOptions)
+  const result = helpers.getInfo(t.context.server)
 
   t.is(result.length, 0)
 })
-

@@ -23,7 +23,7 @@
     "url": "https://github.com/felixheck/wurst.git"
   },
   "bugs": {
-    "email": "hi@whoTheHeck.com",
+    "email": "hi@whotheheck.com",
     "url": "https://github.com/felixheck/wurst/issues"
   },
   "main": "./index.js",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "ava": "^0.22.0",
-    "hapi": "^17.0.0-rc8",
+    "hapi": "^17.0.1",
     "nyc": "^11.2.1",
     "sinon": "^4.0.1",
     "standard": "^10.0.3"
@@ -46,10 +46,10 @@
     "joi": "^13.0.1"
   },
   "peerDependencies": {
-    "hapi": ">= 17.x.x"
+    "hapi": "^17.0.0"
   },
   "engines": {
-    "node": ">=8.0.0",
-    "npm": ">=5.0.0"
+    "node": "^8.0.0",
+    "npm": "^5.0.0"
   }
 }
