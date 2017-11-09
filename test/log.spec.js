@@ -1,40 +1,30 @@
-const test = require('tape').test
+const test = require('ava')
 const path = require('path')
-const { register, setup, teardown } = require('./utils')
+const helpers = require('./_helpers')
 
-/**
- * Options.log specification
- */
+test.beforeEach((t) => {
+  t.context = helpers.setup()
+})
 
-test('plugin/options.log >> outputs the mapping', t => {
-  const fixtures = setup()
+test.afterEach.always((t) => {
+  helpers.teardown(t.context)
+})
 
+test('output the mapping', async (t) => {
   const pluginOptions = {
-    cwd: path.join(__dirname, 'routes'),
+    cwd: path.join(__dirname, 'fixtures'),
     log: true
   }
 
-  register(fixtures.server, pluginOptions, err => {
-    t.notOk(err)
-    t.equal(fixtures.infoSpy.callCount, 4)
-    t.end()
-  })
-
-  teardown(fixtures)
+  await helpers.register(t.context.server, pluginOptions)
+  t.is(t.context.infoSpy.callCount, 4)
 })
 
-test('plugin/options.log >> does not output the mapping', t => {
-  const fixtures = setup()
-
+test('do not output the mapping', async (t) => {
   const pluginOptions = {
-    cwd: path.join(__dirname, 'routes')
+    cwd: path.join(__dirname, 'fixtures')
   }
 
-  register(fixtures.server, pluginOptions, err => {
-    t.notOk(err)
-    t.equal(fixtures.infoSpy.callCount, 0)
-    t.end()
-  })
-
-  teardown(fixtures)
+  await helpers.register(t.context.server, pluginOptions)
+  t.is(t.context.infoSpy.callCount, 0)
 })
