@@ -34,22 +34,22 @@
     "coverage": "nyc report --reporter=lcov"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
-    "hapi": "^17.0.1",
-    "nyc": "^11.2.1",
-    "sinon": "^4.0.1",
-    "standard": "^10.0.3"
+    "ava": "^0.25.0",
+    "hapi": "^17.4.0",
+    "nyc": "^11.7.2",
+    "sinon": "^5.0.7",
+    "standard": "^11.0.1"
   },
   "dependencies": {
     "glob": "^7.1.2",
-    "glob-promise": "^3.2.0",
-    "joi": "^13.0.1"
+    "glob-promise": "^3.4.0",
+    "joi": "^13.3.0"
   },
   "peerDependencies": {
     "hapi": "^17.0.0"
   },
   "engines": {
-    "node": "^8.0.0",
-    "npm": "^5.0.0"
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
   }
 }
