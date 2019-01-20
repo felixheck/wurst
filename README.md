@@ -14,8 +14,14 @@
 ## Introduction
 **wurst** is a directory based autoloader for [hapi.js](https://github.com/hapijs/hapi) routes. Just set up your desired directory structure, export your route files, register the plugin and get your final prefixed routes based on the provided directory structure. For example it is perfect for manage the various versions of your API. *wurst* is the German translation for *sausage* - just throw anything in a pot and in the end you'll be satisfied ;-)
 
-The modules `standard` and `tape` are used to grant a high quality implementation.<br/>
-This major release supports just [hapi.js](https://github.com/hapijs/hapi) `>=v17.0.0` and node `>=v8.0.0` — to support older versions please use `v2.0.1`.
+The modules `standard` and `tape` are used to grant a high quality implementation.
+
+#### Compatibility
+| Major Release | [hapi.js](https://github.com/hapijs/hapi) version | node version |
+| --- | --- | --- |
+| `v4` | `>=18` | `>=8` |
+| `v3` | `>=17` | `>=8` |
+| `v2` | `>=13` | `>=6` |
 
 ## Installation
 For installation use the [Node Package Manager](https://github.com/npm/npm):
