@@ -19,9 +19,10 @@ The modules `standard` and `tape` are used to grant a high quality implementatio
 #### Compatibility
 | Major Release | [hapi.js](https://github.com/hapijs/hapi) version | node version |
 | --- | --- | --- |
-| `v4` | `>=18` | `>=8` |
-| `v3` | `>=17` | `>=8` |
-| `v2` | `>=13` | `>=6` |
+| `v4.1` | `>=18.3.1 @hapi/hapi` | `>=8` |
+| `v4` | `>=18 hapi` | `>=8` |
+| `v3` | `>=17 hapi` | `>=8` |
+| `v2` | `>=13 hapi` | `>=6` |
 
 ## Installation
 For installation use the [Node Package Manager](https://github.com/npm/npm):
@@ -44,7 +45,7 @@ const wurst = require('wurst');
 #### Create hapi server
 Afterwards create your hapi server and the corresponding connection if not already done:
 ``` js
-const hapi = require('hapi');
+const hapi = require('@hapi/hapi');
 const server = hapi.server({
   port: 8888,
   host: 'localhost',

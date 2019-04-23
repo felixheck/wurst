@@ -1,5 +1,5 @@
 const sinon = require('sinon')
-const hapi = require('hapi')
+const hapi = require('@hapi/hapi')
 const plugin = require('../index')
 
 function getInfo (server) {

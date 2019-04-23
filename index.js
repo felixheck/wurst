@@ -1,6 +1,6 @@
 const path = require('path')
 const glob = require('glob-promise')
-const joi = require('joi')
+const joi = require('@hapi/joi')
 const pkg = require('./package.json')
 
 /**
