@@ -19,6 +19,7 @@ The modules `standard` and `tape` are used to grant a high quality implementatio
 #### Compatibility
 | Major Release | [hapi.js](https://github.com/hapijs/hapi) version | node version |
 | --- | --- | --- |
+| `v5` | `>=18.4 @hapi/hapi` | `>=12` |
 | `v4.1` | `>=18.3.1 @hapi/hapi` | `>=8` |
 | `v4` | `>=18 hapi` | `>=8` |
 | `v3` | `>=17 hapi` | `>=8` |
