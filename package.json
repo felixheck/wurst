@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@hapi/hapi": ">=18.4.0",
-    "ava": "^2.4.0",
+    "ava": "^3.5.2",
     "sinon": "^8.0.4",
     "nyc": "^15.0.0",
     "standard": "^14.3.1"
