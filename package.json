@@ -41,7 +41,7 @@
     "standard": "^16.0.3"
   },
   "dependencies": {
-    "@hapi/joi": "^17.0.0",
+    "joi": "^17.0.0",
     "glob": "^7.1.6",
     "glob-promise": "^3.4.0"
   },
