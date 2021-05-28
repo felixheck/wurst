@@ -43,7 +43,7 @@
   "dependencies": {
     "joi": "^17.0.0",
     "glob": "^7.1.6",
-    "glob-promise": "^3.4.0"
+    "glob-promise": "^4.2.0"
   },
   "peerDependencies": {
     "@hapi/hapi": ">=18.4.0"
